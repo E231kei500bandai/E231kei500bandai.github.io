@@ -690,9 +690,47 @@
                     </div>
                 </div>
 
-                <!-- Tab: Overmatch (The Scary Stuff) -->
+                <!-- Tab: Overmatch (UPDATED: NYT INTEL) -->
                 <div id="tab-overmatch" class="hidden grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in">
-                    <div class="hoi-window danger-window p-6">
+                    
+                    <!-- LEFT COLUMN: The "We Lose" Narrative -->
+                    <div class="space-y-6">
+                        
+                        <!-- The Hegseth Quote -->
+                        <div class="hoi-window border-red-900 p-8 flex flex-col justify-center items-center bg-black relative overflow-hidden">
+                            <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/carbon-fibre.png')] opacity-20"></div>
+                            <div class="z-10 text-center">
+                                <h2 class="text-5xl md:text-6xl text-white font-black uppercase super-font leading-none mb-6">"WE LOSE<br><span class="text-red-600">EVERY TIME."</span></h2>
+                                <div class="border-t border-red-900 pt-4 w-full max-w-md mx-auto">
+                                    <p class="text-gray-400 font-mono italic text-sm">"Every trick we had up our sleeve, the Chinese had redundancy after redundancy."</p>
+                                    <p class="text-red-500 font-bold text-xs mt-2 text-right">- SENIOR NSC OFFICIAL, 2025</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Volt Typhoon Alert -->
+                        <div class="hoi-window border-amber-600 p-5 bg-amber-950/10 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 bg-amber-600 text-black font-bold px-2 py-1 text-[10px]">DOMESTIC THREAT</div>
+                            <div class="flex items-start space-x-4">
+                                <div class="text-4xl text-amber-500">☣</div>
+                                <div>
+                                    <h4 class="text-amber-500 font-bold super-font text-lg">VOLT TYPHOON ACTIVE</h4>
+                                    <p class="text-sm text-gray-300 mt-1">
+                                        Malware detected in US power grids, water supplies, and logistics networks.
+                                    </p>
+                                    <p class="text-xs text-gray-500 font-mono mt-2">
+                                        > IMPACT: Disables ability to move weapons from CONUS to Pacific.<br>
+                                        > STATUS: <span class="text-red-500 animate-pulse">PURGE FAILED</span>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                    <!-- RIGHT COLUMN: The Math & Industrial Crisis -->
+                    <div class="space-y-6">
+                        <div class="hoi-window danger-window p-6">
                         <div class="flex justify-between mb-4">
                              <h4 class="text-red-500 text-base super-font">Simulated US Losses (72h)</h4>
                              <span class="text-xs text-red-700 border border-red-900 px-2 py-1 bg-black">UH OH</span>
@@ -700,24 +738,16 @@
                         <div class="chart-container">
                             <canvas id="lossesChart"></canvas>
                         </div>
-                        <p class="text-center text-sm text-gray-500 mt-2">"We lose the Ford every time." - Pentagon Leak</p>
-                    </div>
-                    <div class="space-y-4">
-                        <div class="p-4 border border-blue-900 bg-blue-950/20 rounded">
-                            <h4 class="text-blue-400 font-bold">The Carrier Gap</h4>
-                            <p class="text-sm text-gray-400 mt-1">
-                                The USS Nimitz went home for Christmas. The USS Ford is fighting drugs in the Caribbean. We are fighting a boss battle with starter gear.
-                            </p>
-                        </div>
                         <div class="p-4 border border-purple-900 bg-purple-950/20 rounded">
                             <h4 class="text-purple-400 font-bold">Hypersonic Deficit</h4>
                             <p class="text-sm text-gray-400 mt-1">
                                 China: ~600 Hypersonic Missiles deployed.<br>
                                 USA: 0.<br>
-                                <p class="text-center text-xs text-gray-500 mt-2 font-mono">"We lose the Ford every time." - Pentagon Leak</p>
+                                <p class="text-center text-xs text-gray-500 mt-2 font-mono">"That's a very nice carrier you have there, it'd be a shame if something happened to it."</p>
                             </p>
                         </div>
-                    </div>
+                    </div> 
+                </div>
                 </div>
 
                  <!-- Tab: Economic -->
@@ -1031,7 +1061,7 @@
             <!-- Center: The Quote -->
             <div class="text-center mb-4 md:mb-0">
                 <p class="text-gray-500 italic tracking-widest hover:text-red-500 transition-colors duration-500 cursor-default">
-                    "The region is one trigger-pull away from conflict."
+                    The region is one trigger away from conflict.
                 </p>
             </div>
 
