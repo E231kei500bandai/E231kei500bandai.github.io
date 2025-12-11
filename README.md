@@ -1,0 +1,1 @@
+# E231kei500bandai.github.io
