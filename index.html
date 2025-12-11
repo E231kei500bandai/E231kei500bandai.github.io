@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>kita!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- Fonts: VT323 for Terminal, Ruslan Display for aggressive headers -->
+    <link href="https://fonts.googleapis.com/css2?family=Ruslan+Display&family=VT323&display=swap" rel="stylesheet">
+
+    <style>
+        .ally-window {
+    border-color: #10b981; /* Emerald Green */
+    box-shadow: 0 0 0 2px #000, 0 0 15px rgba(16, 185, 129, 0.4);
+}
+
+        /* Specific filter for Ishiba to look "defeated" */
+        .defeated-img {
+            filter: grayscale(100%) brightness(0.4) contrast(1.5) !important;
+        }
+        .hoi-window:hover .defeated-img {
+            filter: grayscale(100%) brightness(0.6) !important; /* Stays gray even on hover */
+        }
+        :root {
+            --hoi-red: #8a1c1c;
+            --hoi-black: #0f0f0f;
+            --hoi-paper: #2a2a2a;
+            --crt-scanline: rgba(18, 16, 16, 0.5);
+            --neon-red: #ff3333;
+        }
+
+        body {
+            background-color: #050505;
+            color: #dcdcdc;
+            font-family: 'Rajdhani', monospace;
+            overflow-x: hidden;
+            cursor: crosshair;
+        }
+
+        h1, h2 {
+            font-family: 'Ruslan Display', cursive;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        h3, h4, .super-font {
+            font-family: 'Orbitron', sans-serif;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        /* --- CRT EFFECT --- */
+        .crt-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+            z-index: 9999;
+            box-shadow: inset 0 0 100px rgba(0,0,0,0.9);
+        }
+
+        /* --- HOI4 UI ELEMENTS --- */
+        .hoi-window {
+            background: #1c1c1c;
+            border: 2px solid #555;
+            box-shadow: 0 0 0 2px #000, 0 0 15px rgba(255, 50, 50, 0.3);
+            position: relative;
+        }
+
+        .hoi-header {
+            background: linear-gradient(to bottom, #2d2d2d, #1a1a1a);
+            border-bottom: 1px solid #555;
+            padding: 5px 10px;
+            text-shadow: 1px 1px 0 #000;
+        }
+
+        .hoi-btn {
+            background: linear-gradient(to bottom, #3a3a3a, #222);
+            border: 1px solid #555;
+            color: #ccc;
+            text-shadow: 1px 1px 0 #000;
+            transition: all 0.1s;
+            cursor: pointer;
+        }
+        .hoi-btn:hover {
+            background: linear-gradient(to bottom, #4a4a4a, #333);
+            color: #fff;
+            box-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+        .hoi-btn.active {
+            background: #8a1c1c;
+            border-color: #ff3333;
+            color: #fff;
+        }
+
+        .danger-window {
+            border-color: #8a1c1c;
+            box-shadow: 0 0 0 2px #000, 0 0 15px rgba(255, 50, 50, 0.5);
+        }
+
+        .alert-window {
+            border-color: #d97706;
+            box-shadow: 0 0 0 2px #000, 0 0 15px rgba(217, 119, 6, 0.5);
+        }
+
+        .gold-window {
+            border-color: #ca8a04;
+            box-shadow: 0 0 0 2px #000, 0 0 15px rgba(202, 138, 4, 0.5);
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            height: 350px;
+            margin: 0 auto;
+        }
+
+        /* --- GLITCH TEXT --- */
+        .glitch {
+            position: relative;
+        }
+        .glitch::before, .glitch::after {
+            content: attr(data-text);
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #050505;
+        }
+        .glitch::before {
+            left: 2px;
+            text-shadow: -1px 0 #ff0000;
+            clip: rect(24px, 550px, 90px, 0);
+            animation: glitch-anim-2 3s infinite linear alternate-reverse;
+        }
+        .glitch::after {
+            left: -2px;
+            text-shadow: -1px 0 #00ff00;
+            clip: rect(85px, 550px, 140px, 0);
+            animation: glitch-anim 2.5s infinite linear alternate-reverse;
+        }
+        @keyframes glitch-anim {
+            0% { clip: rect(14px, 9999px, 122px, 0); }
+            100% { clip: rect(44px, 9999px, 33px, 0); }
+        }
+        @keyframes glitch-anim-2 {
+            0% { clip: rect(62px, 9999px, 15px, 0); }
+            100% { clip: rect(102px, 9999px, 98px, 0); }
+        }
+
+
+
+        /* Timeline Styling */
+        .timeline-line {
+            position: absolute;
+            left: 23px;
+            top: 0;
+            bottom: 0;
+            width: 1px;
+            background: #555;
+            z-index: 0;
+        }
+
+        .timeline-dot {
+            z-index: 10;
+            box-shadow: 0 0 10px currentColor;
+            transition: transform 0.2s;
+        }
+
+        /* Tabs */
+        .tab-btn {
+            transition: all 0.2s;
+            border-bottom: 2px solid transparent;
+            font-family: 'Ruslan Display', cursive;
+            letter-spacing: 1px;
+            cursor: pointer;
+        }
+        .tab-btn.active {
+            border-color: #ff3333;
+            color: #ff3333;
+            text-shadow: 0 0 8px rgba(255, 51, 51, 0.6);
+        }
+
+        .animate-fade-in {
+            animation: fadeIn 0.4s ease-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hidden-view {
+            display: none;
+        }
+        
+        /* Ticker */
+        .ticker-wrap {
+            width: 100%;
+            overflow: hidden;
+            background-color: #8a1c1c;
+            border-top: 2px solid #000;
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            z-index: 99;
+        }
+        .ticker {
+            display: inline-block;
+            white-space: nowrap;
+            padding-right: 100%;
+            animation: ticker 30s linear infinite;
+            color: #fff;
+        }
+        @keyframes ticker {
+            0% { transform: translate3d(0, 0, 0); }
+            100% { transform: translate3d(-100%, 0, 0); }
+        }
+    </style>
+</head>
+<body class="antialiased selection:bg-red-500/30 selection:text-white pb-12">
+
+    <div class="crt-overlay"></div>
+
+    <!-- Header -->
+    <header class="border-b-4 border-red-900 bg-black sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 h-16 flex items-center justify-between">
+            <div class="flex items-center space-x-6">
+                <div class="h-10 w-10 bg-red-900 border-2 border-white flex items-center justify-center font-bold text-white text-xl super-font">JGL</div>
+                <div>
+                    <h1 class="text-xl font-bold tracking-widest text-red-500 super-font glitch" data-text="GEOPOLITICAL STATUS: CRITICAL">GEOPOLITICAL STATUS: <span class="text-white">CRITICAL</span></h1>
+                    <p class="text-xs text-gray-500 font-mono tracking-wide">System Admin: Master // 2025 Strategic Assessment</p>
+                </div>
+            </div>
+            
+            <!-- Main Nav -->
+            <div class="flex space-x-2">
+                <button onclick="switchView('dashboard')" id="btn-dashboard" class="hoi-btn active px-4 py-2 text-sm">WAR DASHBOARD</button>
+                <button onclick="switchView('profiles')" id="btn-profiles" class="hoi-btn px-4 py-2 text-sm">KEY PLAYERS</button>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 py-8">
+
+        <!-- VIEW: DASHBOARD -->
+        <div id="view-dashboard" class="animate-fade-in space-y-12">
+            <!-- Intro -->
+            <section class="text-center max-w-4xl mx-auto space-y-4">
+                <h2 class="text-4xl md:text-6xl font-bold text-white glitch mb-4 super-font" data-text="THE SANA SHOCK">
+                    THE SANA SHOCK
+                </h2>
+                <div class="hoi-window p-6 text-left text-base">
+                    <span class="text-red-500">> DETECTED: EXISTENTIAL_CRISIS_PROTOCOL</span><br>
+                    <span class="text-amber-500">> WARNING: "Shi Ke Ren" Ultimatum Active</span><br>
+                    <span class="text-gray-300 block mt-4 leading-relaxed">
+                        So, Japan took the path of the glorious death over the slow decline. The LDP Kamikaze has begun. PM Takaichi has linked Japan's survival to Taiwan, bypassing Article 9. Beijing has deployed over 100 ships and radar-locked Japanese fighters. The moderates are gone. This is the Season Finale of East Asia. Rise and shine, Mister Freeman.
+                    </span>
+                </div>
+            </section>
+
+            <!-- KPI Grid -->
+            <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+                <div class="hoi-window danger-window p-5">
+                    <div class="text-xs text-red-500 uppercase tracking-widest">Enemy Unit Count</div>
+                    <div class="text-4xl font-bold text-red-400 mt-1 super-font">100+</div>
+                    <p class="text-sm text-gray-400 mt-2">PLA Ships mobilized. Blockade rehearsal active.</p>
+                </div>
+                <div class="hoi-window p-5">
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">Economic Decoupling</div>
+                    <div class="text-4xl font-bold text-yellow-600 mt-1 super-font">40%</div>
+                    <p class="text-sm text-gray-400 mt-2">Flight cancellation rate. Tourism weaponized.</p>
+                </div>
+                <div class="hoi-window alert-window p-5">
+                    <div class="text-xs text-amber-500 uppercase tracking-widest">Kinetic Trigger</div>
+                    <div class="text-4xl font-bold text-red-500 mt-1 super-font">LOCK ON</div>
+                    <p class="text-sm text-gray-400 mt-2">Fire Control Radar active for 30 minutes.</p>
+                </div>
+                <div class="hoi-window p-5">
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">US Policy</div>
+                    <div class="text-4xl font-bold text-blue-400 mt-1 super-font">STATUTORY</div>
+                    <p class="text-sm text-gray-400 mt-2">One China is dead. Taiwan Assurance Implementation Act signed.</p>
+                </div>
+            </section>
+
+             <div class="lg:col-span-2 cyber-card p-8 danger-card">
+                <div class="flex items-center space-x-3 mb-4">
+                    <div class="w-2 h-8 bg-red-600"></div>
+                    <h3 class="text-2xl text-red-500">THE KILL SWITCH: "是可忍，孰不可忍"</h3>
+                </div>
+                <div class="space-y-4 text-gray-300">
+                    <p>
+                        On Dec 10, China dropped the <span class="text-white font-bold bg-red-900/50 px-1">"Absolutely Intolerable"</span> (是可忍，孰不可忍) line in state media. 
+                    </p>
+                    <p>
+                        Historically, war starts <strong>30-60 days</strong> after they say this line.
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 mt-6 text-center font-mono text-xs">
+                        <div class="p-3 bg-red-950/40 rounded border border-red-900/60">
+                            <div class="text-red-400 font-bold text-sm mb-1">1962 (India)</div>
+                            <div class="text-gray-400">Warning -> War</div>
+                            <div class="text-white font-bold mt-1">1 Month</div>
+                        </div>
+                        <div class="p-3 bg-red-950/40 rounded border border-red-900/60">
+                            <div class="text-red-400 font-bold text-sm mb-1">1979 (Vietnam)</div>
+                            <div class="text-gray-400">Warning -> War</div>
+                            <div class="text-white font-bold mt-1">2 Months</div>
+                        </div>
+                        <div class="p-3 bg-red-950/40 rounded border border-red-900/60 ring-1 ring-red-500 animate-pulse">
+                            <div class="text-red-400 font-bold text-sm mb-1">2025 (Japan)</div>
+                            <div class="text-gray-400">Warning -> ???</div>
+                            <div class="text-white font-bold mt-1">LOADING...</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Timeline & Details -->
+            <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+                <div class="lg:col-span-1 space-y-4">
+                    <div class="border-l-4 border-red-900 pl-4">
+                        <h3 class="text-xl text-white super-font">Escalation Log</h3>
+                        <p class="text-gray-500 text-base mt-1">Select node for intelligence.</p>
+                    </div>
+                    <div id="timeline-container" class="relative pl-6 space-y-4 h-[500px] overflow-y-auto pr-2">
+                        <div class="timeline-line"></div>
+                    </div>
+                </div>
+                <div class="lg:col-span-2">
+                    <div id="timeline-detail" class="hoi-window h-full p-8 flex flex-col justify-center transition-all duration-300">
+                        <div class="text-xs text-red-500 uppercase mb-2" id="detail-date">SYSTEM READY</div>
+                        <h4 class="text-3xl font-bold text-white mb-6 super-font" id="detail-title">Awaiting Input</h4>
+                        <p class="text-lg text-gray-300 leading-relaxed mb-6" id="detail-desc">
+                            Select a timeline event to retrieve classified details regarding the diplomatic crisis and military buildup.
+                        </p>
+                        <div id="detail-tag" class="inline-block px-3 py-1 bg-black border border-gray-600 text-gray-400 text-sm w-max">
+                            STATUS: STANDBY
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Analysis Tabs -->
+            <section>
+                <div class="flex flex-wrap gap-4 border-b-2 border-gray-800 mb-8 pb-2">
+                    <button class="tab-btn active text-lg px-4 py-2" onclick="switchTab('military')">MILITARY OPS</button>
+                    <button class="tab-btn text-lg px-4 py-2 text-gray-500" onclick="switchTab('overmatch')">OVERMATCH BRIEF</button>
+                    <button class="tab-btn text-lg px-4 py-2 text-gray-500" onclick="switchTab('eco')">ECONOMIC WAREFARE</button>
+                    <button class="tab-btn text-lg px-4 py-2 text-gray-500" onclick="switchTab('legal')">LEGAL</button>
+                </div>
+
+                <!-- Tab: Military -->
+                <div id="tab-military" class="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in">
+                    <div class="hoi-window p-6">
+                        <h4 class="text-red-500 text-base mb-4 text-center super-font">Naval Hull Count</h4>
+                        <div class="chart-container">
+                            <canvas id="navalChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="hoi-window p-4">
+                            <h4 class="text-gray-300 font-bold mb-2 super-font">Carrier Gap Status</h4>
+                            <ul class="space-y-2 text-sm text-gray-300">
+                                <li class="flex justify-between"><span>USS NIMITZ</span> <span class="text-red-500">OFFLINE (Transit)</span></li>
+                                <li class="flex justify-between"><span>USS TRUMAN</span> <span class="text-amber-500">BUSY (Red Sea)</span></li>
+                                <li class="flex justify-between"><span>USS G. WASHINGTON</span> <span class="text-green-500">ONLINE</span></li>
+                            </ul>
+                        </div>
+                        <div class="p-4 border border-red-900 bg-red-950/20 rounded">
+                            <h4 class="text-red-500 font-bold">The Yonaguni Fortress</h4>
+                            <p class="text-sm text-gray-400 mt-1">
+                                Koizumi put missiles on Yonaguni (110km from Taiwan). It's a choke point. China must bomb it to break out.
+                            </p>
+                        </div>
+                        <div class="hoi-window danger-window p-4">
+                            <h4 class="text-red-500 font-bold mb-2 super-font">The "Monster" (CCG 2901)</h4>
+                            <p class="text-sm text-gray-300">
+                                12,000-ton cutter. It's bigger than destroyers. Physical ramming imminent.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Overmatch (The Scary Stuff) -->
+                <div id="tab-overmatch" class="hidden grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in">
+                    <div class="hoi-window danger-window p-6">
+                        <div class="flex justify-between mb-4">
+                             <h4 class="text-red-500 text-base super-font">Simulated US Losses (72h)</h4>
+                             <span class="text-xs text-red-700 border border-red-900 px-2 py-1 bg-black">UH OH</span>
+                        </div>
+                        <div class="chart-container">
+                            <canvas id="lossesChart"></canvas>
+                        </div>
+                        <p class="text-center text-sm text-gray-500 mt-2">"We lose the Ford every time." - Pentagon Leak</p>
+                    </div>
+                    <div class="space-y-4">
+                        <div class="p-4 border border-blue-900 bg-blue-950/20 rounded">
+                            <h4 class="text-blue-400 font-bold">The Carrier Gap</h4>
+                            <p class="text-sm text-gray-400 mt-1">
+                                The USS Nimitz went home for Christmas. The USS Ford is fighting drugs in the Caribbean. We are fighting a boss battle with starter gear.
+                            </p>
+                        </div>
+                        <div class="p-4 border border-purple-900 bg-purple-950/20 rounded">
+                            <h4 class="text-purple-400 font-bold">Hypersonic Deficit</h4>
+                            <p class="text-sm text-gray-400 mt-1">
+                                China: ~600 Hypersonic Missiles deployed.<br>
+                                USA: 0.<br>
+                                <p class="text-center text-xs text-gray-500 mt-2 font-mono">"We lose the Ford every time." - Pentagon Leak</p>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+
+                 <!-- Tab: Economic -->
+                <div id="tab-eco" class="hidden grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in">
+                    <div class="hoi-window p-6">
+                        <h4 class="text-gray-300 text-base mb-4 text-center super-font">Flight Cancellation Velocity</h4>
+                        <div class="chart-container">
+                            <canvas id="flightChart"></canvas>
+                        </div>
+                    </div>
+                    <div class="flex flex-col justify-center p-4">
+                        <h3 class="text-2xl text-white mb-2 super-font">Tourism Weaponized</h3>
+                        <p class="text-gray-300 text-base mb-4">
+                            1,900+ flights cut. They are actively removing hostages (tourists) from the blast zone.
+                        </p>
+                        <div class="hoi-window p-4">
+                            <h4 class="text-gray-400 text-sm mb-2 uppercase super-font">Soft Blockade Model</h4>
+                            <p class="text-sm text-gray-500">
+                                Create "Inspection Zones" -> Insurance premiums spike -> Taiwan economy suffocates. No shots fired.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                
+                 <!-- Tab: Legal -->
+                <div id="tab-legal" class="hidden grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in">
+                    <div class="hoi-window p-6">
+                        <h4 class="text-green-400 text-base mb-4 super-font">US Legislative Hacks</h4>
+                        <ul class="space-y-3 text-sm text-gray-300">
+                            <li class="flex items-start">
+                                <span class="text-green-500 mr-2">[SIGNED]</span>
+                                <span class="text-white">Taiwan Assurance Act:</span> Forces State Dept to stop ghosting Taiwan. 5-Year reviews mandatory.
+                            </li>
+                             <li class="flex items-start">
+                                <span class="text-green-500 mr-2">[PASSED]</span>
+                                <span class="text-white">Six Assurances Act:</span> Illegal to set end date for arms sales. No consultation with Beijing.
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="hoi-window p-6">
+                        <h4 class="text-red-400 text-base mb-4 super-font">The Takaichi Glitch</h4>
+                        <p class="text-sm text-gray-300 mb-2">
+                            Defined Taiwan Blockade as <span class="text-white font-bold">"Survival Crisis"</span>.
+                        </p>
+                        <div class="p-2 bg-red-900/20 border border-red-900 text-sm text-red-300 mt-2">
+                            Result: Activates Collective Self-Defense. Japan is legally bound to fight.
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- VIEW: PROFILES -->
+        <div id="view-profiles" class="hidden-view animate-fade-in space-y-12">
+            <section class="text-center max-w-4xl mx-auto mb-8">
+                <h2 class="text-4xl font-bold text-white glitch mb-2 super-font" data-text="STRATEGIC DOSSIERS">STRATEGIC DOSSIERS</h2>
+                <p class="text-gray-400 text-base">Key actors in the 2025 Pacific Theater.</p>
+            </section>
+
+            <!-- Changed grid to fit 5 people comfortably (responsive) -->
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                
+                <!-- 1. TAKAICHI (JAPAN) -->
+                <div class="hoi-window danger-window p-0 flex flex-col group relative overflow-hidden">
+                    <div class="absolute top-0 right-0 bg-red-600 text-black font-bold px-2 py-1 text-xs z-10">DEFCON 2</div>
+                    <div class="profile-img-box">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ae/Official_portrait_of_Sanae_Takaichi%2C_Prime_Minister_of_Japan_%28HD%29.jpg/480px-Official_portrait_of_Sanae_Takaichi%2C_Prime_Minister_of_Japan_%28HD%29.jpg" alt="Sanae Takaichi" style="filter: sepia(20%) hue-rotate(-50deg) contrast(1.2);">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl text-white super-font">Sanae Takaichi</h3>
+                            <span class="text-xs font-bold bg-red-900/40 text-red-400 border border-red-700 px-2 py-1">PRIME MINISTER</span>
+                        </div>
+                        <div class="space-y-4 text-sm text-gray-300 flex-1">
+                            <p><strong>Role:</strong> The Iron Lady.</p>
+                                                       <p>
+                                Elected on a platform of unapologetic nationalism, she executed the "LDP Kamikaze" strategy. By explicitly linking Taiwan's security to Japan's "Survival Crisis" (存立危機事態), she legally bypassed Article 9 restrictions.
+                            </p>
+                            <p>
+                                She ignored China's ultimatums, viewing them as bluffs. She has successfully purged internal dissent, creating a unified, war-ready cabinet.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-red-900/30 text-xs text-red-500 font-mono">
+                            > STATUS: LOCKED IN<br>
+                            > TRAIT: NATIONALIST FERVOR
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 2. XI JINPING (CHINA) -->
+                <div class="hoi-window p-0 flex flex-col group border-red-900 shadow-[0_0_15px_rgba(255,0,0,0.2)]">
+                    <div class="profile-img-box">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/c/c9/Xi_Jinping_in_2025.jpg" alt="Xi Jinping" style="filter: sepia(20%) hue-rotate(-50deg) contrast(1.2);">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl text-red-500 super-font">Xi Jinping</h3>
+                            <span class="text-xs font-bold bg-red-950 text-red-600 border border-red-900 px-2 py-1">CHAIRMAN</span>
+                        </div>
+                        <div class="space-y-4 text-sm text-gray-400 flex-1">
+                            <p><strong>Role:</strong> The Architect.</p>
+                            <p>Issued the "Shi Ke Ren" (Don't say I didn't warn you) statement. Has mobilized the Northern Theater Command. Viewing Takaichi as a "Revived Imperialist" justifies his domestic war footing.</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-red-900/30 text-xs text-red-700 font-mono">
+                            > STATUS: OFFENSIVE<br>
+                            > TRAIT: THE ENGINEER
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 3. TRUMP (USA) -->
+                <div class="hoi-window gold-window p-0 flex flex-col group">
+                    <div class="profile-img-box">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/5/56/Donald_Trump_official_portrait.jpg" alt="Donald Trump" style="filter: sepia(20%) hue-rotate(-50deg) contrast(1.2);">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl text-amber-500 super-font">Donald Trump</h3>
+                            <span class="text-xs font-bold bg-amber-900/40 text-amber-400 border border-amber-700 px-2 py-1">PRESIDENT</span>
+                        </div>
+                        <div class="space-y-4 text-sm text-gray-300 flex-1">
+                            <p><strong>Role:</strong> The Wildcard.</p>
+                                                        <p>
+                                His "Peace Through Strength" rhetoric has collided with the reality of the First Island Chain. He signed the <span class="text-white">Taiwan Assurance Implementation Act</span> not out of love for democracy, but to spite Beijing's economic coercion.
+                            </p>
+                            <p>
+                                His unpredictability keeps Beijing guessing, but also leaves Tokyo unsure if the US Cavalry will actually arrive.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-amber-900/30 text-xs text-amber-500 font-mono">
+                            > STATUS: VOLATILE<br>
+                            > TRAIT: THE ART OF THE DEAL
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 4. LAI CHING-TE (TAIWAN) -->
+                <div class="hoi-window ally-window p-0 flex flex-col group">
+                    <div class="profile-img-box">
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/14/Lai_Ching-te_official_portrait_2020.jpg/640px-Lai_Ching-te_official_portrait_2020.jpg" alt="Lai Ching-te">
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl text-emerald-400 super-font">Lai Ching-te</h3>
+                            <span class="text-xs font-bold bg-emerald-900/40 text-emerald-400 border border-emerald-700 px-2 py-1">TARGET</span>
+                        </div>
+                        <div class="space-y-4 text-sm text-gray-300 flex-1">
+                            <p><strong>Role:</strong> The Spark.</p>
+                            <p>Current President of Taiwan. China calls him a "Stubborn Separatist." He has welcomed Takaichi's support, effectively merging Japan and Taiwan's defense grids.</p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-emerald-900/30 text-xs text-emerald-500 font-mono">
+                            > STATUS: BESIEGED<br>
+                            > TRAIT: DEFIANT
+                        </div>
+                    </div>
+                </div>
+
+                <!-- 5. ISHIBA (MODERATES) -->
+                <div class="hoi-window p-0 flex flex-col border-gray-700 opacity-75 hover:opacity-100 transition-opacity">
+                    <div class="profile-img-box">
+                        <!-- Applied the "defeated-img" class to make him look dark/purged -->
+                        <img src="https://upload.wikimedia.org/wikipedia/commons/6/66/Shigeru_Ishiba_20241004.jpg" class="defeated-img" alt="Shigeru Ishiba">
+                        <!-- Overlay text -->
+                        <div class="absolute inset-0 flex items-center justify-center z-10 pointer-events-none">
+                            <span class="text-3xl font-bold text-red-600 border-4 border-red-600 px-4 py-1 rotate-12 opacity-80 super-font">PURGED</span>
+                        </div>
+                    </div>
+                    <div class="p-6 flex-1 flex flex-col">
+                        <div class="flex justify-between items-start mb-4">
+                            <h3 class="text-2xl text-gray-500 super-font line-through">Shigeru Ishiba</h3>
+                            <span class="text-xs font-bold bg-gray-800 text-gray-500 border border-gray-600 px-2 py-1">IRRELEVANT</span>
+                        </div>
+                        <div class="space-y-4 text-sm text-gray-500 flex-1">
+                            <p><strong>Role:</strong> The Ghost.</p>
+                            <p>Former PM and leader of the moderate faction. Attempted to balance US/China relations but was crushed by the nationalist wave. Now sits in the backbench, silenced.</p>
+                            <p>
+                                 Once the stabilizers of Japanese politics, the moderate wing has been effectively decapitated. Their warnings about economic strangulation and the loss of the Komeito coalition were ignored in the face of nationalist fervor. Their warnings about economic strangulation were ignored.
+                            </p>
+                        </div>
+                        <div class="mt-4 pt-4 border-t border-gray-700/30 text-xs text-gray-600 font-mono">
+                            > STATUS: INACTIVE<br>
+                            > TRAIT: CRIPPLED
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+                <section class="border-t border-gray-800 pt-8 pb-12">
+            <h3 class="text-xl text-gray-500 mb-6 font-mono text-center">CONFIRMED INTEL</h3>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 text-xs font-mono">
+                <!-- Source 1 -->
+                <a href="https://www.scmp.com/news/china/diplomacy/article/3288697/chinese-airlines-cancel-flights-12-japan-routes-tensions-continue-rise" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-blue-500 hover:bg-blue-900/10 transition rounded group">
+                    <span class="text-blue-400 group-hover:text-blue-300 font-bold block mb-1">SCMP</span>
+                    <span class="text-gray-400">Flight Cancellations & Economic Blockade</span>
+                </a>
+                <!-- Source 2 -->
+                <a href="https://mainichi.jp/english/articles/20251120/p2a/00m/0na/019000c" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-red-500 hover:bg-red-900/10 transition rounded group">
+                    <span class="text-red-400 group-hover:text-red-300 font-bold block mb-1">Mainichi Shimbun</span>
+                    <span class="text-gray-400">China Invokes "Enemy States" Clause</span>
+                </a>
+                <!-- Source 3 -->
+                <a href="https://www.japantimes.co.jp/news/2025/11/23/japan/politics/koizumi-yonaguni-missile-deployment/" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-amber-500 hover:bg-amber-900/10 transition rounded group">
+                    <span class="text-amber-400 group-hover:text-amber-300 font-bold block mb-1">Japan Times</span>
+                    <span class="text-gray-400">Koizumi Puts Missiles on Yonaguni</span>
+                </a>
+                <!-- Source 4 -->
+                <a href="https://www.scmp.com/news/china/article/3288975/us-senate-approves-bill-could-clear-way-more-official-exchanges-taiwan" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-blue-500 hover:bg-blue-900/10 transition rounded group">
+                    <span class="text-blue-400 group-hover:text-blue-300 font-bold block mb-1">SCMP</span>
+                    <span class="text-gray-400">US Senate Passes Taiwan Bill</span>
+                </a>
+                <!-- Source 5 -->
+                <a href="https://www.taipeitimes.com/News/taiwan/archives/2024/12/04/2003828639" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-green-500 hover:bg-green-900/10 transition rounded group">
+                    <span class="text-green-400 group-hover:text-green-300 font-bold block mb-1">Taipei Times</span>
+                    <span class="text-gray-400">Six Assurances Act & Andy Kim</span>
+                </a>
+                <!-- Source 6 -->
+                 <a href="https://news.yahoo.co.jp/articles/152988bb546a4bc11ae9" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-red-500 hover:bg-red-900/10 transition rounded group">
+                    <span class="text-red-400 group-hover:text-red-300 font-bold block mb-1">Yahoo JP / Mainichi</span>
+                    <span class="text-gray-400">Wang Yi: "Red Line Crossed"</span>
+                </a>
+                 <!-- Source 7 -->
+                 <a href="https://www.sankei.com/article/20251207-KCRPUZHDF2VZD6JDWUI/" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-red-500 hover:bg-red-900/10 transition rounded group">
+                    <span class="text-red-400 group-hover:text-red-300 font-bold block mb-1">Sankei</span>
+                    <span class="text-gray-400">Radar Lock Incident Confirmed</span>
+                </a>
+                 <!-- Source 8 -->
+                 <a href="https://www.nikkei.com/article/DGXZQOUA106KZ0Q5A211C2000000/" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-gray-500 hover:bg-gray-900/10 transition rounded group">
+                    <span class="text-gray-300 group-hover:text-gray-200 font-bold block mb-1">Nikkei</span>
+                    <span class="text-gray-400">Takaichi Begs Trump for Meeting</span>
+                </a>
+                <!-- Source 9 -->
+                 <a href="https://www.tokyo-np.co.jp/article/450561" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-gray-500 hover:bg-gray-900/10 transition rounded group">
+                    <span class="text-gray-300 group-hover:text-gray-200 font-bold block mb-1">Tokyo Shimbun</span>
+                    <span class="text-gray-400">Okada Explains the Trap</span>
+                </a>
+                <!-- Source 10 -->
+                <a href="https://newsdig.tbs.co.jp/articles/-/2306625?display=1" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-red-500 hover:bg-red-900/10 transition rounded group">
+                    <span class="text-red-400 group-hover:text-red-300 font-bold block mb-1">TBS News</span>
+                    <span class="text-gray-400">China Calls Japan "Hypocrites"</span>
+                </a>
+                 <!-- Source 11 -->
+                <a href="https://news.yahoo.co.jp/articles/93844517ce8391df7fa5" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-blue-500 hover:bg-blue-900/10 transition rounded group">
+                    <span class="text-blue-400 group-hover:text-blue-300 font-bold block mb-1">Yahoo JP</span>
+                    <span class="text-gray-400">US Ambassador Condemns China</span>
+                </a>
+            </div>
+        </section>
+    </main>
+
+        <footer class="max-w-7xl mx-auto px-4 py-6 border-t border-gray-900 mt-8 mb-16 relative z-10 bg-black/50 backdrop-blur-sm">
+        <div class="flex flex-col md:flex-row justify-between items-center text-xs font-mono text-gray-600">
+            
+            <!-- Left: System Status -->
+            <div class="flex items-center space-x-4 mb-4 md:mb-0">
+                <div class="flex items-center">
+                    <div class="w-2 h-2 bg-green-900 rounded-full animate-pulse mr-2 box-shadow-[0_0_5px_#10b981]"></div>
+                    <span>CHUD STATUS: "Nothing Ever Happens"</span>
+                </div>
+                <span>::</span>
+                <span>HAPPENING LEVEL: <span class="text-red-900">99.99999%</span></span>
+            </div>
+
+            <!-- Center: The Quote -->
+            <div class="text-center mb-4 md:mb-0">
+                <p class="text-gray-500 italic tracking-widest hover:text-red-500 transition-colors duration-500 cursor-default">
+                    "The region is one trigger-pull away from conflict."
+                </p>
+            </div>
+
+            <!-- Right: Meta Data -->
+            <div class="text-right flex flex-col items-center md:items-end">
+                <span class="opacity-50">https://www.youtube.com/watch?v=Ca-1I8zRIcc</span>
+                <span class="text-[10px] uppercase">OSINT</span>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Ticker -->
+    <div class="ticker-wrap">
+        <div class="ticker font-mono text-sm py-1">
+            +++ HAIL SHINZO HAIL SHINZO HAIL SHINZO +++ THIS IS NETOUYO COUNTRY (OORAH!) +++ DEFEATING THE RADICAL LEFT +++ THE ONLY GOOD JAPPU IS A WORKING JAPPU +++ BANZAI! TENNO HEIKA BANZAI! +++ WOLLT IHR DENN TOTALEN KRIEG?! +++ QUANTITATIVE EASING DECLARED +++ +++ HAIL SHINZO HAIL SHINZO HAIL SHINZO +++ THIS IS NETOUYO COUNTRY (OORAH!) +++ DEFEATING THE RADICAL LEFT +++ THE ONLY GOOD JAPPU IS A WORKING JAPPU +++ BANZAI! TENNO HEIKA BANZAI! +++ WOLLT IHR DENN TOTALEN KRIEG?! +++ QUANTITATIVE EASING DECLARED +++
+        </div>
+    </div>
+
+    <script>
+        // --- Data & State ---
+    const timelineData = [
+        { 
+            date: "Oct 31", 
+            title: "APEC: The Cold Shoulder", 
+            desc: "Prime Minister Takaichi's initial encounter with President Xi Jinping at the APEC summit in Lima was characterized by a profound diplomatic frost. Unlike previous administrations that sought balance, Takaichi projected an aura of unyielding nationalism. The meeting concluded without a joint communiqué, with state media describing the atmosphere as 'hostile' and 'irreconcilable.' This failure of protocol signaled to the Politburo that the LDP had abandoned its traditional factional consensus in favor of a radical, confrontationist foreign policy.", 
+            type: "diplomatic" 
+        },
+        { 
+            date: "Nov 1", 
+            title: "Taiwan Contact: Lin Hsin-i", 
+            desc: "In a move calculated to provoke, Takaichi held a high-profile meeting with former Taiwanese Vice Premier Lin Hsin-i merely 24 hours after snubbing Xi. Beijing lodged a 'solemn representation,' viewing this not as a diplomatic courtesy but as a de facto recognition of Taiwanese sovereignty. This shattered the 1972 communique's spirit, signaling that Tokyo now views Taipei not as a regional economic partner, but as a military ally in the coming struggle for the Pacific.", 
+            type: "diplomatic" 
+        },
+        { 
+            date: "Nov 7", 
+            title: "The Survival Doctrine", 
+            desc: "The Rubicon is crossed. In a fiery session at the Diet, PM Sanae Takaichi officially linked the 'Existential Survival' (Sonritsu Kiki Jitai) of the Japanese State to the defense of Taiwan. This doctrinal shift effectively legally mandates the JSDF to deploy alongside US forces in a Taiwan contingency. For Beijing, this is the 'Original Sin'—a resurrection of the Greater East Asia Co-Prosperity Sphere rhetoric that justifies preemptive strikes against Japanese soil to prevent 'encirclement.'", 
+            type: "trigger" 
+        },
+        { 
+            date: "Nov 7", 
+            title: "Threat: 'Dirty Neck'", 
+            desc: "Chinese Consul General Xue Jian abandoned all diplomatic decorum, taking to social media to issue a visceral threat: 'We have no choice but to cut off that dirty neck... Are you ready?' This dehumanizing language, targeting the Japanese Prime Minister explicitly, indicates a shift in CCP internal propaganda. They are no longer preparing the population for a geopolitical dispute, but for a war of annihilation against a 'revived fascist entity.'", 
+            type: "diplomatic" 
+        },
+        { 
+            date: "Nov 10", 
+            title: "Diplomatic Protest", 
+            desc: "The Japanese Foreign Ministry summoned the Chinese envoy to protest the 'Dirty Neck' tweet, but the response was silence. US Ambassador George Glass issued a rare public condemnation, solidifying the US-Japan alignment. However, the lack of a retraction from Beijing suggests Xue's comments were not a rogue outburst, but state-sanctioned 'Wolf Warrior' signalling intended to test Tokyo's resolve.", 
+            type: "diplomatic" 
+        },
+        { 
+            date: "Nov 12", 
+            title: "The Refusal", 
+            desc: "Amidst screaming opposition members and a fractured Diet, Takaichi stood firm, refusing to retract her 'Survival Crisis' remarks. 'The era of ambiguity is over,' she declared. This refusal marks the effective death of the moderate LDP factions (Kishida/Motegi). The party has now fully metamorphosed into a vehicle for Takaichi's ultranationalist vision, purging internal dissenters who fear economic retaliation.", 
+            type: "political" 
+        },
+        { 
+            date: "Nov 15", 
+            title: "Yellow Sea Exercises", 
+            desc: "China announced massive live-fire exercises in the Yellow Sea from Nov 17-19. While ostensibly routine, the exclusion zones overlap with commercial shipping lanes vital to Japan's energy imports. This is a dry run for a resource strangulation strategy. Simultaneously, travel warnings were issued, advising Chinese citizens to flee Japan—a classic precursor to kinetic operations to clear the battlespace of 'hostages.'", 
+            type: "military" 
+        },
+        { 
+            date: "Nov 17", 
+            title: "Cultural War Declared", 
+            desc: "The conflict spills into the cultural domain. Japanese films like 'Crayon Shin-chan' and 'Cells at Work' were abruptly pulled from Chinese theaters. This total erasure of Japanese soft power indicates Beijing is preparing its domestic population for total war. By severing cultural ties, they are dehumanizing the enemy, ensuring that the Chinese public sees Japan only as a target, not as a producer of beloved media.", 
+            type: "diplomatic" 
+        },
+        { 
+            date: "Nov 18", 
+            title: "US Senate Escalation", 
+            desc: "The US Senate passed the 'Taiwan Assurance Implementation Act,' mandating deeper diplomatic ties. This legislative warfare forces the State Department to abandon decades of caution. For Takaichi, this is a green light; for Xi, it is proof of a coordinated US-Japan containment plot. The diplomatic off-ramps are being demolished one by one by legislative concrete.", 
+            type: "diplomatic" 
+        },
+        { 
+            date: "Nov 20", 
+            title: "The Red Line", 
+            desc: "Foreign Minister Wang Yi delivered a chilling ultimatum: Japan has 'Crossed the Red Line' and China 'must resolutely counterattack.' The use of 'Must' (Bixu) implies a lack of choice—the CCP's legitimacy is now tied to punishing Japan. Simultaneously, the US Senate introduced the 'Six Assurances Act,' locking the US into a conflict trajectory regardless of who sits in the Oval Office.", 
+            type: "trigger" 
+        },
+        { 
+            date: "Nov 23", 
+            title: "Fortress Yonaguni", 
+            desc: "Defense Minister Koizumi landed on Yonaguni, the westernmost island of Japan (110km from Taiwan), standing before newly deployed Type 12 Surface-to-Ship Missile batteries. China labeled this 'Extremely Dangerous.' Koizumi's presence turns the island into a tripwire; any PLA naval movement through the Miyako Strait now occurs under the crosshairs of Japanese batteries. The island is no longer civilian territory; it is a forward operating base.", 
+            type: "military" 
+        },
+        { 
+            date: "Nov 24", 
+            title: "The Xi-Trump Call", 
+            desc: "In a phone call with Donald Trump, Xi Jinping invoked the World War II alliance, framing the current crisis as a struggle against 'Revived Imperial Japanese Fascism.' This attempt to wedge the US and Japan failed, but it reveals Beijing's narrative strategy: painting Takaichi as a successor to Tojo Hideki to legitimize a 'defensive' war. Meanwhile, 12 flight routes were suspended, severing the physical link between the nations.", 
+            type: "diplomatic" 
+        },
+        { 
+            date: "Dec 2", 
+            title: "The Legal Accelerant", 
+            desc: "President Trump signed the Taiwan Assurance Implementation Act. The 'One China Policy' is effectively dead in Washington. Simultaneously, the Japan Coast Guard engaged in aggressive shielding maneuvers against Chinese vessels in the Senkakus. The legal and tactical barriers to war have dissolved. The US, Japan, and Taiwan are now a de facto tripartite military alliance, forcing China to act before the alliance solidifies further.", 
+            type: "trigger" 
+        },
+        { 
+            date: "Dec 4", 
+            title: "100-Ship Surge", 
+            desc: "The PLA initiated the '100-Ship Surge,' a maritime saturation event unprecedented in scale. Over 100 vessels, including the Liaoning carrier group and the 12,000-ton CCG 2901, flooded the First Island Chain. This is not a drill; it is a blockade rehearsal. Japanese trade routes are being shadowed, and 'Gray Zone' intercepts have turned into simulated attack runs on allied hulls.", 
+            type: "military" 
+        },
+        { 
+            date: "Dec 6", 
+            title: "The Kill Box (Radar Lock)", 
+            desc: "KINETIC SIGNALING: Two Chinese J-15 fighters locked fire-control radar onto JASDF F-15J interceptors for 30 consecutive minutes. This was not a scan; it was a simulation of the 'Kill Chain.' The Chinese pilots were waiting for a single twitch from the Japanese pilots to justify a launch. This incident brings the region to the absolute brink of an accidental air war.", 
+            type: "kinetic" 
+        },
+        { 
+            date: "Dec 8", 
+            title: "Unexpected Earthquake", 
+            desc: "A Magnitude 7.5 earthquake struck Northern Japan, devastating infrastructure near Misawa Air Base. Instead of offering aid, the PLA accelerated southern operations, practicing 'Disaster Opportunism.' With Japan's northern assets grounded or diverted for relief, the southern flank is exposed. The 'Divine Wind' has failed; nature is now aiding the adversary.", 
+            type: "kinetic" 
+        },
+        { 
+            date: "Dec 10", 
+            title: "FINAL ULTIMATUM", 
+            desc: "State media published the phrase \"是可忍，孰不可忍\" (If this can be tolerated, what cannot be tolerated?). Historically used before the 1962 India war and 1979 Vietnam war, this is the final warning. Simultaneously, Russian Tu-95 nuclear bombers entered the theater, patrolling the Pacific approaches. The Sino-Russian alliance is active once more. War is no longer a probability; it is a scheduled event.", 
+            type: "trigger" 
+        }
+    ];
+
+        // --- View Logic ---
+        function switchView(viewName) {
+            const dashboard = document.getElementById('view-dashboard');
+            const profiles = document.getElementById('view-profiles');
+            const btnDash = document.getElementById('btn-dashboard');
+            const btnProf = document.getElementById('btn-profiles');
+
+            if (viewName === 'dashboard') {
+                dashboard.classList.remove('hidden-view');
+                profiles.classList.add('hidden-view');
+                
+                btnDash.classList.add('active');
+                btnProf.classList.remove('active');
+            } else {
+                dashboard.classList.add('hidden-view');
+                profiles.classList.remove('hidden-view');
+                
+                btnDash.classList.remove('active');
+                btnProf.classList.add('active');
+            }
+        }
+
+        // --- Timeline Logic ---
+        const timelineContainer = document.getElementById('timeline-container');
+        const detailTitle = document.getElementById('detail-title');
+        const detailDate = document.getElementById('detail-date');
+        const detailDesc = document.getElementById('detail-desc');
+        const detailTag = document.getElementById('detail-tag');
+
+        function renderTimeline() {
+            if(!timelineContainer) return;
+            timelineContainer.innerHTML = '';
+            const line = document.createElement('div');
+            line.className = 'timeline-line';
+            timelineContainer.appendChild(line);
+
+            timelineData.forEach((item, index) => {
+                const el = document.createElement('div');
+                el.className = 'relative flex items-center group cursor-pointer hover:bg-red-900/20 p-2 transition-colors';
+                el.onclick = () => showDetail(index);
+                
+                let dotColor = item.type === 'trigger' ? 'text-red-500' : (item.type === 'kinetic' ? 'text-amber-500' : (item.type === 'military' ? 'text-gray-300' : 'text-gray-500'));
+                
+                el.innerHTML = `
+                    <div class="timeline-dot absolute left-[19px] w-2 h-2 rounded-full bg-current ${dotColor}"></div>
+                    <div class="ml-10">
+                        <span class="text-sm text-gray-500 uppercase">${item.date}</span>
+                        <h4 class="text-base font-semibold text-gray-200 group-hover:text-red-500 transition-colors super-font">${item.title}</h4>
+                    </div>
+                `;
+                timelineContainer.appendChild(el);
+            });
+        }
+
+        function showDetail(index) {
+            const item = timelineData[index];
+            detailTitle.textContent = item.title;
+            detailDate.textContent = "DATE: " + item.date + " 2025";
+            detailDesc.textContent = item.desc;
+            
+            let tagClass = "bg-gray-800 text-gray-400 border-gray-600";
+            if (item.type === 'trigger') tagClass = "bg-red-900/20 text-red-400 border-red-800";
+            if (item.type === 'kinetic') tagClass = "bg-amber-900/20 text-amber-400 border-amber-800";
+            if (item.type === 'military') tagClass = "bg-black text-gray-300 border-gray-600";
+            
+            detailTag.className = `inline-block px-3 py-1 border text-sm w-max ${tagClass}`;
+            detailTag.textContent = "TYPE: " + item.type.toUpperCase();
+        }
+
+        // --- Tab Logic ---
+        function switchTab(tab) {
+            ['military', 'overmatch', 'eco', 'legal'].forEach(t => {
+                const content = document.getElementById(`tab-${t}`);
+                if (content) {
+                    if (t === tab) {
+                        content.classList.remove('hidden');
+                        content.classList.add('grid');
+                    } else {
+                        content.classList.add('hidden');
+                        content.classList.remove('grid');
+                    }
+                }
+            });
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                if (btn.innerText.toLowerCase().includes(tab)) {
+                    btn.classList.add('active', 'text-red-500');
+                    btn.classList.remove('text-gray-500');
+                } else {
+                    btn.classList.remove('active', 'text-red-500');
+                    btn.classList.add('text-gray-500');
+                }
+            });
+        }
+
+        // --- Charts ---
+        window.onload = function() {
+            renderTimeline();
+            showDetail(timelineData.length - 1);
+
+            const hoiOptions = {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { 
+                    legend: { labels: { color: '#ccc', font: { family: 'VT323', size: 16 } } } 
+                },
+                scales: {
+                    y: { grid: { color: '#333' }, ticks: { color: '#ccc', font: { family: 'VT323', size: 14 } } },
+                    x: { grid: { display: false }, ticks: { color: '#ccc', font: { family: 'VT323', size: 14 } } }
+                }
+            };
+
+            if(document.getElementById('navalChart')) {
+                new Chart(document.getElementById('navalChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['PLA Fleet', 'US 7th Fleet', 'JSDF'],
+                        datasets: [{ label: 'Operational Hulls', data: [100, 50, 40], backgroundColor: ['#8a1c1c', '#3a3a3a', '#555'], borderWidth: 2, borderColor: '#000' }]
+                    }, options: hoiOptions
+                });
+            }
+
+            if(document.getElementById('lossesChart')) {
+                new Chart(document.getElementById('lossesChart'), {
+                    type: 'bar',
+                    indexAxis: 'y',
+                    data: {
+                        labels: ['5th-Gen Fighters', 'Destroyers', 'Carriers'],
+                        datasets: [{ label: 'Simulated Losses', data: [100, 8, 2], backgroundColor: '#ff3333', borderWidth: 2, borderColor: '#000' }]
+                    }, options: hoiOptions
+                });
+            }
+            
+            if(document.getElementById('missileChart')) {
+                new Chart(document.getElementById('missileChart'), {
+                    type: 'bar',
+                    data: {
+                        labels: ['China (Deployed)', 'USA (Deployed)'],
+                        datasets: [{ label: 'Hypersonic Missiles', data: [600, 0], backgroundColor: ['#8a1c1c', '#3a3a3a'], borderWidth: 2, borderColor: '#000' }]
+                    }, options: hoiOptions
+                });
+            }
+
+            if(document.getElementById('flightChart')) {
+                new Chart(document.getElementById('flightChart'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Nov 15', 'Nov 20', 'Nov 24', 'Dec 1'],
+                        datasets: [{ label: 'Cancellation %', data: [5, 10, 21, 40], borderColor: '#ff3333', backgroundColor: 'rgba(138, 28, 28, 0.2)', fill: true, tension: 0.4, borderWidth: 2 }]
+                    }, options: hoiOptions
+                });
+            }
+        };
+    </script>
+</body>
+</html>
