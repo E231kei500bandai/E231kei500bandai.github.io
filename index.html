@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>kita!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!</title>
+    <title>「日本終了」</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     
@@ -1055,7 +1055,8 @@
                     <span>CHUD STATUS: "Nothing Ever Happens"</span>
                 </div>
                 <span>::</span>
-                <span>HAPPENING LEVEL: <span class="text-red-900">99.99999%</span></span>
+                <!-- The Script targets this span specifically -->
+                <span>HAPPENING LEVEL: <span class="text-red-900 font-bold font-mono">99.99999%</span></span>
             </div>
 
             <!-- Center: The Quote -->
@@ -1088,6 +1089,21 @@
     </div>
 
     <script>
+        // --- HAPPENING METER LOGIC ---
+        function updateHappeningLevel() {
+            const levelElement = document.querySelector('.text-red-900'); // Targeted via class
+            if (!levelElement) return;
+
+            // Randomize the percentage slightly to make it look alive
+            const base = 90;
+            const fluctuating = Math.random() * (9.999 - 0.001) + 0.001;
+            const currentLevel = (base + fluctuating).toFixed(5);
+            
+            levelElement.innerText = currentLevel + "%";
+        }
+
+        // Run every 100ms
+        setInterval(updateHappeningLevel, 100);
         // --- Data & State ---
         const timelineData = [
             { 
