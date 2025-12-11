@@ -12,9 +12,57 @@
 
     <style>
         .ally-window {
-    border-color: #10b981; /* Emerald Green */
-    box-shadow: 0 0 0 2px #000, 0 0 15px rgba(16, 185, 129, 0.4);
-}
+            border-color: #10b981; /* Emerald Green */
+            box-shadow: 0 0 0 2px #000, 0 0 15px rgba(16, 185, 129, 0.4);
+        }
+
+        .radar-box {
+            position: relative;
+            width: 150px;
+            height: 150px;
+            background: radial-gradient(circle, rgba(20, 50, 20, 1) 0%, #000 100%);
+            border: 2px solid #555;
+            border-radius: 50%;
+            overflow: hidden;
+            box-shadow: 0 0 10px #10b981;
+        }
+        .radar-sweep {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(90deg, transparent, #39ff14);
+            transform-origin: 0% 0%;
+            animation: radar-spin 2s infinite linear;
+            box-shadow: 0 0 10px #39ff14;
+        }
+        .radar-dot {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #ff0000;
+            border-radius: 50%;
+            box-shadow: 0 0 5px #ff0000;
+            opacity: 0;
+            animation: blip 2s infinite;
+        }
+        @keyframes radar-spin {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        @keyframes blip {
+            0% { opacity: 0; }
+            20% { opacity: 1; transform: scale(1.5); }
+            100% { opacity: 0; }
+        }
+        .nuke-flash {
+            animation: nuke-pulse 2s infinite;
+        }
+        @keyframes nuke-pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(220, 38, 38, 0); border-color: #555; }
+            50% { box-shadow: 0 0 20px 0 rgba(220, 38, 38, 0.5); border-color: #dc2626; }
+        }
 
         /* Specific filter for Ishiba to look "defeated" */
         .defeated-img {
@@ -321,6 +369,104 @@
                     </div>
                 </div>
             </div>
+            <!-- STRATEGIC NUCLEAR ALERT SECTION -->
+            <section class="mb-8 mt-8">
+                <div class="hoi-window nuke-flash bg-black border-2 border-red-900 p-0 overflow-hidden relative">
+                    
+                    <!-- Header Strip -->
+                    <div class="bg-red-900/80 text-white px-4 py-2 flex justify-between items-center border-b border-red-600">
+                        <div class="flex items-center space-x-3">
+                            <span class="text-2xl animate-pulse">☢</span>
+                            <h3 class="text-lg md:text-xl font-bold tracking-widest super-font">STRATEGIC NUCLEAR ASSETS DETECTED</h3>
+                        </div>
+                        <span class="text-xs font-mono bg-black px-2 py-1 border border-red-500 text-red-500 animate-pulse">DEFCON 2</span>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-0">
+                        
+                        <!-- Left: Radar Visual -->
+                        <div class="md:col-span-3 bg-[#0a0f0a] border-r border-gray-800 p-6 flex flex-col items-center justify-center relative">
+                            <div class="radar-box mb-4">
+                                <div class="radar-sweep"></div>
+                                <!-- Blips representing bombers -->
+                                <div class="radar-dot" style="top: 30%; left: 60%; animation-delay: 0.2s;"></div>
+                                <div class="radar-dot" style="top: 70%; left: 40%; animation-delay: 0.8s;"></div>
+                                <div class="radar-dot" style="top: 20%; left: 20%; animation-delay: 1.2s;"></div>
+                            </div>
+                            <div class="text-center">
+                                <div class="text-green-500 font-mono text-sm">GOLD SHIP RADAR: ACTIVE</div>
+                                <div class="text-gray-500 font-mono text-xs mt-1">TRACKING TRUTH NUKES</div>
+                            </div>
+                        </div>
+
+                        <!-- Middle: The Situation -->
+                        <div class="md:col-span-6 p-6 flex flex-col justify-center bg-gradient-to-r from-[#1c1c1c] to-[#111]">
+                            <h4 class="text-red-500 text-xl mb-2 super-font">"THE NUCLEAR TABOO IS BROKEN"</h4>
+                            <p class="text-gray-300 text-sm leading-relaxed mb-4">
+                                Dec 11, 2025: Escalation has reached the nuclear threshold. Following Sino-Russian bomber patrols, the US has deployed <strong>B-52 Stratofortresses</strong> to the Sea of Japan.
+                            </p>
+                            <div class="bg-red-950/30 border border-red-900 p-3 rounded">
+                                <p class="text-xs text-red-300 font-mono">
+                                    > INTELLIGENCE:<br>
+                                    This is "Signaling." The B-52s are flying with transponders ON. They <em>want</em> Beijing to see the nuclear payload
+                                </p>
+                            </div>
+                        </div>
+
+                        <!-- Right: Asset Board -->
+                        <div class="md:col-span-3 bg-black border-l border-gray-800 p-4 flex flex-col justify-between font-mono text-xs">
+                            
+                            <!-- US Asset -->
+                            <div class="mb-4 group">
+                                <div class="flex justify-between text-blue-400 font-bold border-b border-blue-900 mb-1 pb-1">
+                                    <span>USA</span>
+                                    <span>[ACTIVE]</span>
+                                </div>
+                                <div class="flex items-center justify-between text-gray-400">
+                                    <span>UNIT:</span> <span class="text-white">B-52H Stratofortress</span>
+                                </div>
+                                <div class="flex items-center justify-between text-gray-400">
+                                    <span>PAYLOAD:</span> <span class="text-red-500 animate-pulse">AGM-86B (Nuke)</span>
+                                </div>
+                            </div>
+
+                            <!-- Russia Asset -->
+                            <div class="mb-4 group">
+                                <div class="flex justify-between text-amber-600 font-bold border-b border-amber-900 mb-1 pb-1">
+                                    <span>RUSSIA</span>
+                                    <span>[PATROL]</span>
+                                </div>
+                                <div class="flex items-center justify-between text-gray-400">
+                                    <span>UNIT:</span> <span class="text-white">Tu-95 "Bear"</span>
+                                </div>
+                                <div class="flex items-center justify-between text-gray-400">
+                                    <span>VECTOR:</span> <span>Pacific Approach</span>
+                                </div>
+                            </div>
+
+                            <!-- China Asset -->
+                            <div class="group">
+                                <div class="flex justify-between text-red-600 font-bold border-b border-red-900 mb-1 pb-1">
+                                    <span>CHINA</span>
+                                    <span>[SCRAMBLED]</span>
+                                </div>
+                                <div class="flex items-center justify-between text-gray-400">
+                                    <span>UNIT:</span> <span class="text-white">H-6K Bomber</span>
+                                </div>
+                                <div class="flex items-center justify-between text-gray-400">
+                                    <span>STATUS:</span> <span>Encircling Taiwan</span>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                    
+                    <!-- Bottom Warning Ticker within the card -->
+                    <div class="bg-red-900 text-black text-[10px] font-bold text-center py-1 tracking-[0.2em] animate-pulse">
+                        You thought Hiroshima was bad?
+                    </div>
+                </div>
+            </section>
             <!-- Timeline & Details -->
             <section class="grid grid-cols-1 lg:grid-cols-3 gap-8">
                 <div class="lg:col-span-1 space-y-4">
@@ -333,14 +479,27 @@
                     </div>
                 </div>
                 <div class="lg:col-span-2">
-                    <div id="timeline-detail" class="hoi-window h-full p-8 flex flex-col justify-center transition-all duration-300">
-                        <div class="text-xs text-red-500 uppercase mb-2" id="detail-date">SYSTEM READY</div>
-                        <h4 class="text-3xl font-bold text-white mb-6 super-font" id="detail-title">Awaiting Input</h4>
-                        <p class="text-lg text-gray-300 leading-relaxed mb-6" id="detail-desc">
-                            Select a timeline event to retrieve classified details regarding the diplomatic crisis and military buildup.
-                        </p>
-                        <div id="detail-tag" class="inline-block px-3 py-1 bg-black border border-gray-600 text-gray-400 text-sm w-max">
-                            STATUS: STANDBY
+                    <div id="timeline-detail" class="hoi-window h-full p-8 flex flex-col justify-start transition-all duration-300 relative overflow-hidden">
+                        
+                        <!-- Visual Intel (Image) Container -->
+                        <div id="detail-img-container" class="hidden mb-6 border border-gray-600 bg-black p-1 relative group">
+                            <div class="absolute top-0 right-0 bg-red-600 text-black text-[10px] font-bold px-2 z-10">VISUAL INTEL</div>
+                            <!-- Scanline overlay for the image -->
+                            <div class="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] bg-[length:100%_4px,3px_100%] pointer-events-none z-10"></div>
+                            <img id="detail-img" class="w-full h-48 object-cover filter grayscale contrast-125 sepia-[0.3]" src="" alt="Intel Image">
+                        </div>
+
+                        <div class="flex justify-between items-start mb-2">
+                            <div class="text-xs text-red-500 uppercase" id="detail-date">SYSTEM READY</div>
+                            <div id="detail-tag" class="text-[10px] px-2 py-0.5 border border-gray-600 text-gray-500">STANDBY</div>
+                        </div>
+                        
+                        <h4 class="text-3xl font-bold text-white mb-4 super-font leading-none" id="detail-title">Awaiting Input</h4>
+                        
+                        <div class="overflow-y-auto pr-2 custom-scrollbar">
+                            <p class="text-base text-gray-300 leading-relaxed" id="detail-desc">
+                                Select a timeline event to retrieve details regarding the diplomatic crisis and military buildup.
+                            </p>
                         </div>
                     </div>
                 </div>
@@ -428,10 +587,10 @@
                     <div class="flex flex-col justify-center p-4">
                         <h3 class="text-2xl text-white mb-2 super-font">Tourism Weaponized</h3>
                         <p class="text-gray-300 text-base mb-4">
-                            1,900+ flights cut. They are actively removing hostages (tourists) from the blast zone.
+                            1,900+ flights cut. China is blockading tourism.
                         </p>
                         <div class="hoi-window p-4">
-                            <h4 class="text-gray-400 text-sm mb-2 uppercase super-font">Soft Blockade Model</h4>
+                            <h4 class="text-gray-400 text-sm mb-2 uppercase super-font">Potential Soft Blockade Model</h4>
                             <p class="text-sm text-gray-500">
                                 Create "Inspection Zones" -> Insurance premiums spike -> Taiwan economy suffocates. No shots fired.
                             </p>
@@ -442,20 +601,20 @@
                  <!-- Tab: Legal -->
                 <div id="tab-legal" class="hidden grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in">
                     <div class="hoi-window p-6">
-                        <h4 class="text-green-400 text-base mb-4 super-font">US Legislative Hacks</h4>
+                        <h4 class="text-green-400 text-base mb-4 super-font">US Congress</h4>
                         <ul class="space-y-3 text-sm text-gray-300">
                             <li class="flex items-start">
                                 <span class="text-green-500 mr-2">[SIGNED]</span>
                                 <span class="text-white">Taiwan Assurance Act:</span> Forces State Dept to stop ghosting Taiwan. 5-Year reviews mandatory.
                             </li>
                              <li class="flex items-start">
-                                <span class="text-green-500 mr-2">[PASSED]</span>
+                                <span class="text-green-500 mr-2">[INTRODUCED]</span>
                                 <span class="text-white">Six Assurances Act:</span> Illegal to set end date for arms sales. No consultation with Beijing.
                             </li>
                         </ul>
                     </div>
                     <div class="hoi-window p-6">
-                        <h4 class="text-red-400 text-base mb-4 super-font">The Takaichi Glitch</h4>
+                        <h4 class="text-red-400 text-base mb-4 super-font">Bakaichi</h4>
                         <p class="text-sm text-gray-300 mb-2">
                             Defined Taiwan Blockade as <span class="text-white font-bold">"Survival Crisis"</span>.
                         </p>
@@ -659,7 +818,7 @@
                 <!-- Source 5 -->
                 <a href="https://www.taipeitimes.com/News/taiwan/archives/2024/12/04/2003828639" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-green-500 hover:bg-green-900/10 transition rounded group">
                     <span class="text-green-400 group-hover:text-green-300 font-bold block mb-1">Taipei Times</span>
-                    <span class="text-gray-400">Six Assurances Act & Andy Kim</span>
+                    <span class="text-gray-400">Six Assurances Act</span>
                 </a>
                 <!-- Source 6 -->
                  <a href="https://news.yahoo.co.jp/articles/152988bb546a4bc11ae9" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-red-500 hover:bg-red-900/10 transition rounded group">
@@ -744,122 +903,72 @@
 
     <script>
         // --- Data & State ---
-    const timelineData = [
-        { 
-            date: "Oct 31", 
-            title: "APEC: The Cold Shoulder", 
-            desc: "Prime Minister Takaichi's initial encounter with President Xi Jinping at the APEC summit in Lima was characterized by diplomatic frost. Unlike previous administrations that sought balance, Takaichi projected an aura of unyielding nationalism. The meeting concluded without a joint communiqué, with state media describing the atmosphere as 'hostile' and 'irreconcilable.' This failure of protocol signaled to the Politburo that the LDP had abandoned its traditional factional consensus in favor of a radical, confrontationist foreign policy.", 
-            type: "diplomatic" 
-        },
-        { 
-            date: "Nov 1", 
-            title: "Taiwan Contact: Lin Hsin-i", 
-            desc: "In a move calculated to provoke, Takaichi held a high-profile meeting with former Taiwanese Vice Premier Lin Hsin-i merely 24 hours after snubbing Xi. Beijing lodged a 'solemn representation,' viewing this not as a diplomatic courtesy but as a de facto recognition of Taiwanese sovereignty. This shattered the 1972 communique's spirit, signaling that Tokyo now views Taipei not as a regional economic partner, but as a military ally in the coming struggle for the Pacific.", 
-            type: "diplomatic" 
-        },
-        { 
-            date: "Nov 7", 
-            title: "The Survival Doctrine", 
-            desc: "The Rubicon is crossed. In a fiery session at the Diet, PM Sanae Takaichi officially linked the 'Existential Survival' (Sonritsu Kiki Jitai) of the Japanese State to the defense of Taiwan. This doctrinal shift effectively legally mandates the JSDF to deploy alongside US forces in a Taiwan contingency. For Beijing, this is the 'Original Sin'—a resurrection of the Greater East Asia Co-Prosperity Sphere rhetoric that justifies preemptive strikes against Japanese soil to prevent 'encirclement.'", 
-            type: "trigger" 
-        },
-        { 
-            date: "Nov 7", 
-            title: "Threat: 'Dirty Neck'", 
-            desc: "Chinese Consul General Xue Jian abandoned all diplomatic decorum, taking to social media to issue a visceral threat: 'We have no choice but to cut off that dirty neck... Are you ready?' This dehumanizing language, targeting the Japanese Prime Minister explicitly, indicates a shift in CCP internal propaganda. They are no longer preparing the population for a geopolitical dispute, but for a war of annihilation against a 'revived fascist entity.'", 
-            type: "diplomatic" 
-        },
-        { 
-            date: "Nov 10", 
-            title: "Diplomatic Protest", 
-            desc: "The Japanese Foreign Ministry summoned the Chinese envoy to protest the 'Dirty Neck' tweet, but the response was silence. US Ambassador George Glass issued a rare public condemnation, solidifying the US-Japan alignment. However, the lack of a retraction from Beijing suggests Xue's comments were not a rogue outburst, but state-sanctioned 'Wolf Warrior' signalling intended to test Tokyo's resolve.", 
-            type: "diplomatic" 
-        },
-        { 
-            date: "Nov 12", 
-            title: "The Refusal", 
-            desc: "Amidst screaming opposition members and a fractured Diet, Takaichi stood firm, refusing to retract her 'Survival Crisis' remarks. 'The era of ambiguity is over,' she declared. This refusal marks the effective death of the moderate LDP factions (Kishida/Motegi). The party has now fully metamorphosed into a vehicle for Takaichi's ultranationalist vision, purging internal dissenters who fear economic retaliation.", 
-            type: "political" 
-        },
-        { 
-            date: "Nov 15", 
-            title: "Yellow Sea Exercises", 
-            desc: "China announced massive live-fire exercises in the Yellow Sea from Nov 17-19. While ostensibly routine, the exclusion zones overlap with commercial shipping lanes vital to Japan's energy imports. This is a dry run for a resource strangulation strategy. Simultaneously, travel warnings were issued, advising Chinese citizens to flee Japan—a classic precursor to kinetic operations to clear the battlespace of 'hostages.'", 
-            type: "military" 
-        },
-        { 
-            date: "Nov 17", 
-            title: "Cultural War Declared", 
-            desc: "The conflict spills into the cultural domain. Japanese films like 'Crayon Shin-chan' and 'Cells at Work' were abruptly pulled from Chinese theaters. This total erasure of Japanese soft power indicates Beijing is preparing its domestic population for total war. By severing cultural ties, they are dehumanizing the enemy, ensuring that the Chinese public sees Japan only as a target, not as a producer of beloved media.", 
-            type: "diplomatic" 
-        },
-        { 
-            date: "Nov 18", 
-            title: "US Senate Escalation", 
-            desc: "The US Senate passed the 'Taiwan Assurance Implementation Act,' mandating deeper diplomatic ties. This legislative warfare forces the State Department to abandon decades of caution. The One China Policy is being demolished.", 
-            type: "diplomatic" 
-        },
-        { 
-            date: "Nov 20", 
-            title: "The Red Line", 
-            desc: "Foreign Minister Wang Yi delivered a chilling ultimatum: Japan has 'Crossed the Red Line'. He invokes the UN 'Enemy States Clause,' claiming a legal right to strike Japan without Security Council approval", 
-            type: "trigger" 
-        },
-        { 
-            date: "Nov 23", 
-            title: "Fortress Yonaguni", 
-            desc: "Defense Minister Koizumi landed on Yonaguni, the westernmost island of Japan (110km from Taiwan), standing before newly deployed Type 12 Surface-to-Ship Missile batteries. China labeled this 'Extremely Dangerous' and begins drone overflights of the island. Any PLA naval movement through the Miyako Strait now occurs under the crosshairs of Japanese batteries..", 
-            type: "military" 
-        },
-        { 
-            date: "Nov 24", 
-            title: "The Xi-Trump Call", 
-            desc: "In a phone call with Donald Trump, Xi Jinping invoked the World War II alliance, framing the current crisis as a struggle against 'Revived Imperial Japanese Fascism.' This attempt to wedge the US and Japan failed, but it reveals Beijing's narrative strategy: painting Takaichi as a successor to Tojo Hideki to legitimize a 'defensive' war. Meanwhile, 12 flight routes were suspended, severing the physical link between the nations.", 
-            type: "diplomatic" 
-        },
-        { 
-            date: "Dec 2", 
-            title: "The Legal Accelerant", 
-            desc: "President Trump signed the Taiwan Assurance Implementation Act. The 'One China Policy' is effectively dead in Washington. Simultaneously, the Japan Coast Guard engaged in aggressive shielding maneuvers against Chinese vessels in the Senkakus. The legal and tactical barriers to war have dissolved. The US, Japan, and Taiwan are now a de facto tripartite military alliance, forcing China to act before the alliance solidifies further.", 
-            type: "trigger" 
-        },
-        { 
-            date: "Dec 4", 
-            title: "100-Ship Surge", 
-            desc: "The PLA initiated the '100-Ship Surge,' a maritime saturation event unprecedented in scale. Over 100 vessels, including the Liaoning carrier group and the 12,000-ton CCG 2901, flooded the First Island Chain. This is not a drill; it is a blockade rehearsal. Japanese trade routes are being shadowed, and 'Gray Zone' intercepts have turned into simulated attack runs on allied hulls.", 
-            type: "military" 
-        },
-        { 
-            date: "Dec 6", 
-            title: "The Kill Box (Radar Lock)", 
-            desc: "KINETIC SIGNALING: Two Chinese J-15 fighters locked fire-control radar onto JASDF F-15J interceptors for 30 consecutive minutes. This was not a scan; it was a simulation of the 'Kill Chain.' The Chinese pilots were waiting for a single twitch from the Japanese pilots to justify a launch. This incident brings the region to the absolute brink of an accidental air war.", 
-            type: "kinetic" 
-        },
-        {
-            date: "Dec 7", 
-            title: "Hotline Dead", 
-            desc: "Japan attempts to use the emergency military hotline to de-escalate the radar incident. China does not pick up. The mechanism to prevent accidental war has failed.", 
-            type: "trigger" 
+        const timelineData = [
+            { 
+                date: "Oct 31", 
+                title: "APEC: The Cold Shoulder", 
+                desc: "Prime Minister Takaichi's initial encounter with President Xi Jinping at APEC was characterized by diplomatic frost. Takaichi projected an aura of unyielding nationalism. The meeting concluded without a joint communiqué.", 
+                type: "diplomatic",
+                // No image for this one, falls back to text only
+                img: null 
             },
-        { 
-            date: "Dec 8", 
-            title: "Unexpected Earthquake", 
-            desc: "A Magnitude 7.5 earthquake struck Northern Japan, devastating infrastructure near Misawa Air Base. Instead of offering aid, the PLA accelerated southern operations, practicing 'Disaster Opportunism.' With Japan's northern assets grounded or diverted for relief, the southern flank is exposed. The 'Divine Wind' has failed; nature is now aiding the adversary.", 
-            type: "kinetic" 
+            { 
+                date: "Nov 7", 
+                title: "The Survival Doctrine", 
+                desc: "The Rubicon is crossed. PM Sanae Takaichi officially linked the 'Existential Survival' of Japan to the defense of Taiwan. This legally mandates the JSDF to deploy alongside US forces.", 
+                type: "trigger",
+                img: null
             },
-        { 
-            date: "Dec 9", 
-            title: "The US Speaks", 
-            desc: "The US State Department breaks its silence, stating 'Commitment to Japan is Unwavering' and condemning China's radar lock. The conflict is now fully internationalized.", 
-            type: "diplomatic" 
+            { 
+                date: "Nov 15", 
+                title: "Yellow Sea Exercises", 
+                desc: "China announced massive live-fire exercises in the Yellow Sea. The exclusion zones overlap with commercial shipping lanes vital to Japan's energy imports.", 
+                type: "military",
+                img: "https://assets.bwbx.io/images/users/iqjWHBFdfxIU/iGVLDOXcTuEU/v1/1200x800.jpg"
             },
-        { 
-            date: "Dec 10", 
-            title: "FINAL ULTIMATUM", 
-            desc: "State media published the phrase \"是可忍，孰不可忍\" (If this can be tolerated, what cannot be tolerated?). Historically used before the 1962 India war and 1979 Vietnam war, this is the final warning. Simultaneously, Russian Tu-95 nuclear bombers entered the theater, patrolling the Pacific approaches. The Sino-Russian alliance is active once more.  PM Takaichi publicly pleads for a meeting with Donald Trump 'as soon as possible' to save her administration. Trump remains silent.", 
-            type: "trigger" 
-        }
-    ];
+            { 
+                date: "Nov 23", 
+                title: "Fortress Yonaguni", 
+                desc: "Defense Minister Koizumi landed on Yonaguni (110km from Taiwan), standing before Type 12 Surface-to-Ship Missiles. This turns the island into a 'Kill Box' for any Chinese ships passing through the strait.", 
+                type: "military",
+                img: "https://www.stripes.com/incoming/a7ox6a-250423japan-pac3photo01.jpg/alternates/LANDSCAPE_910/250423JAPAN-PAC3photo01.jpg"
+            },
+            { 
+                date: "Dec 2", 
+                title: "The Legal Accelerant", 
+                desc: "Trump signed the Taiwan Assurance Act. The 'One China Policy' is effectively dead. US, Japan, and Taiwan are now a de facto tripartite military alliance.", 
+                type: "trigger",
+                img: null
+            },
+            { 
+                date: "Dec 4", 
+                title: "100-Ship Surge", 
+                desc: "The PLA initiated the '100-Ship Surge.' Over 100 vessels, including the Liaoning carrier group, flooded the First Island Chain. This is a blockade rehearsal.", 
+                type: "military",
+                img: "https://s.yimg.com/ny/api/res/1.2/aVbrH3PWwkOqwtcZeGCUMg--/YXBwaWQ9aGlnaGxhbmRlcjt3PTEyNDI7aD03NzA7Y2Y9d2VicA--/https://media.zenfs.com/en/the_telegraph_258/20357d111d780dc248063ec3bf92ee74"
+            },
+            { 
+                date: "Dec 6", 
+                title: "Radar Lock", 
+                desc: "Chinese J-15 fighters locked fire-control radar onto JASDF F-15J interceptors for 30 minutes. This was a simulated kill. One twitch would have started the war.", 
+                type: "kinetic",
+                img: "https://theaviationist.com/wp-content/uploads/2025/12/PLAN_Shenyang_J-15_carrier-based_fighter_aircraft_20250608_-_1.jpg"
+            },
+            { 
+                date: "Dec 10", 
+                title: "FINAL ULTIMATUM", 
+                desc: "State media published 'Shi ke ren, shu bu ke ren' (If this can be tolerated, what cannot?). War is no longer a probability; it is a scheduled event.", 
+                type: "trigger",
+                img: null
+            },
+            { 
+                date: "Dec 11", 
+                title: "Nuclear B-52s", 
+                desc: "The US Air Force responded. Nuclear-capable B-52 Stratofortresses executed a 'Show of Force' sortie over the Sea of Japan. The nuclear triad is now active.", 
+                type: "military",
+                img: "https://fas.org/wp-content/uploads/2023/04/B-52_B61-7_drop.jpg"
+            }
+        ];
 
         // --- View Logic ---
         function switchView(viewName) {
@@ -915,21 +1024,47 @@
             });
         }
 
+        /* --- UPDATED SHOW DETAIL FUNCTION --- */
         function showDetail(index) {
             const item = timelineData[index];
+            const imgContainer = document.getElementById('detail-img-container');
+            const img = document.getElementById('detail-img');
+            const detailTitle = document.getElementById('detail-title');
+            const detailDate = document.getElementById('detail-date');
+            const detailDesc = document.getElementById('detail-desc');
+            const detailTag = document.getElementById('detail-tag');
+
+            // Handle Content
             detailTitle.textContent = item.title;
             detailDate.textContent = "DATE: " + item.date + " 2025";
             detailDesc.textContent = item.desc;
             
+            // Handle Tag Styling
             let tagClass = "bg-gray-800 text-gray-400 border-gray-600";
-            if (item.type === 'trigger') tagClass = "bg-red-900/20 text-red-400 border-red-800";
-            if (item.type === 'kinetic') tagClass = "bg-amber-900/20 text-amber-400 border-amber-800";
-            if (item.type === 'military') tagClass = "bg-black text-gray-300 border-gray-600";
+            let tagText = item.type.toUpperCase();
             
-            detailTag.className = `inline-block px-3 py-1 border text-sm w-max ${tagClass}`;
-            detailTag.textContent = "TYPE: " + item.type.toUpperCase();
-        }
+            if (item.type === 'trigger') {
+                tagClass = "bg-red-900/20 text-red-400 border-red-800 animate-pulse";
+                tagText = "⚠ TRIGGER EVENT";
+            }
+            if (item.type === 'kinetic') {
+                tagClass = "bg-amber-900/20 text-amber-400 border-amber-800";
+                tagText = "⚡ KINETIC";
+            }
+            
+            detailTag.className = `text-[10px] px-2 py-0.5 border ${tagClass}`;
+            detailTag.textContent = tagText;
 
+            // Handle Image Visibility
+            if (item.img) {
+                img.src = item.img;
+                imgContainer.classList.remove('hidden');
+            } else {
+                imgContainer.classList.add('hidden');
+                img.src = "";
+            }
+        }
+        
         // --- Tab Logic ---
         function switchTab(tab) {
             ['military', 'overmatch', 'eco', 'legal'].forEach(t => {
