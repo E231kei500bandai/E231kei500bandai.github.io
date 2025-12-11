@@ -249,7 +249,7 @@
             display: none;
         }
         
-        /* Ticker */
+        /* --- UPDATED TICKER CSS --- */
         .ticker-wrap {
             width: 100%;
             overflow: hidden;
@@ -259,17 +259,25 @@
             bottom: 0;
             left: 0;
             z-index: 99;
+            white-space: nowrap; /* Forces content to stay on one line */
         }
+        
         .ticker {
             display: inline-block;
             white-space: nowrap;
-            padding-right: 100%;
-            animation: ticker 30s linear infinite;
-            color: #fff;
+            /* Speed: 60s for a smooth, readable crawl */
+            animation: ticker 60s linear infinite; 
         }
+
+        /* Styles for the inner items */
+        .ticker-item {
+            display: inline-block;
+            padding-right: 0; 
+        }
+
         @keyframes ticker {
             0% { transform: translate3d(0, 0, 0); }
-            100% { transform: translate3d(-100%, 0, 0); }
+            100% { transform: translate3d(-50%, 0, 0); } /* Move exactly halfway left */
         }
     </style>
 </head>
@@ -284,7 +292,7 @@
                 <div class="h-10 w-10 bg-red-900 border-2 border-white flex items-center justify-center font-bold text-white text-xl super-font">JGL</div>
                 <div>
                     <h1 class="text-xl font-bold tracking-widest text-red-500 super-font glitch" data-text="GEOPOLITICAL STATUS: CRITICAL">GEOPOLITICAL STATUS: <span class="text-white">CRITICAL</span></h1>
-                    <p class="text-xs text-gray-500 font-mono tracking-wide">System Admin: Master // 2025 Strategic Assessment</p>
+                    <p class="text-xs text-gray-500 font-mono tracking-wide">System Admin: vistedbyghosts // 2025 Strategic Assessment</p>
                 </div>
             </div>
             
@@ -333,7 +341,7 @@
                 </div>
                 <div class="hoi-window p-5">
                     <div class="text-xs text-gray-400 uppercase tracking-widest">US Policy</div>
-                    <div class="text-4xl font-bold text-blue-400 mt-1 super-font">STATUTORY</div>
+                    <div class="text-4xl font-bold text-blue-400 mt-1 super-font">TAIWAN</div>
                     <p class="text-sm text-gray-400 mt-2">One China is dead. Taiwan Assurance Implementation Act signed.</p>
                 </div>
             </section>
@@ -341,7 +349,7 @@
              <div class="lg:col-span-2 cyber-card p-8 danger-card">
                 <div class="flex items-center space-x-3 mb-4">
                     <div class="w-2 h-8 bg-red-600"></div>
-                    <h3 class="text-2xl text-red-500">THE KILL SWITCH: "是可忍，孰不可忍"</h3>
+                    <h3 class="text-2xl text-red-500">THE KILL SWITCH</h3>
                 </div>
                 <div class="space-y-4 text-gray-300">
                     <p>
@@ -401,14 +409,14 @@
 
                         <!-- Middle: The Situation -->
                         <div class="md:col-span-6 p-6 flex flex-col justify-center bg-gradient-to-r from-[#1c1c1c] to-[#111]">
-                            <h4 class="text-red-500 text-xl mb-2 super-font">"THE NUCLEAR TABOO IS BROKEN"</h4>
+                            <h4 class="text-red-500 text-xl mb-2 super-font">"I would bomb the shit out of 'em."</h4>
                             <p class="text-gray-300 text-sm leading-relaxed mb-4">
                                 Dec 11, 2025: Escalation has reached the nuclear threshold. Following Sino-Russian bomber patrols, the US has deployed <strong>B-52 Stratofortresses</strong> to the Sea of Japan.
                             </p>
                             <div class="bg-red-950/30 border border-red-900 p-3 rounded">
                                 <p class="text-xs text-red-300 font-mono">
                                     > INTELLIGENCE:<br>
-                                    This is "Signaling." The B-52s are flying with transponders ON. They <em>want</em> Beijing to see the nuclear payload
+                                    This is "Signaling." The B-52s are flying with transponders ON. They <em>want</em> Beijing to see the nuclear payload.
                                 </p>
                             </div>
                         </div>
@@ -514,34 +522,170 @@
                     <button class="tab-btn text-lg px-4 py-2 text-gray-500" onclick="switchTab('legal')">LEGAL</button>
                 </div>
 
-                <!-- Tab: Military -->
+                <!-- Tab: Military (UPDATED with USNI Data) -->
                 <div id="tab-military" class="grid grid-cols-1 lg:grid-cols-2 gap-8 animate-fade-in">
-                    <div class="hoi-window p-6">
-                        <h4 class="text-red-500 text-base mb-4 text-center super-font">Naval Hull Count</h4>
-                        <div class="chart-container">
-                            <canvas id="navalChart"></canvas>
+                    
+                    <!-- LEFT COLUMN: Charts & Sealift -->
+                    <div class="space-y-6">
+                        
+                        <!-- 1. Naval Chart -->
+                        <div class="hoi-window p-6">
+                            <h4 class="text-red-500 text-base mb-4 text-center super-font">Naval Hull Count (Theater)</h4>
+                            <div class="chart-container">
+                                <canvas id="navalChart"></canvas>
+                            </div>
+                            <div class="mt-4 border-t border-gray-700 pt-2 text-center">
+                                <p class="text-xs text-gray-500 font-mono">DATA: USNI FLEET TRACKER (DEC 8)</p>
+                            </div>
                         </div>
+
+                        <!-- 2. NEW: THE CIVILIAN ARMADA (FERRIES) -->
+                        <div class="hoi-window border-amber-900/60 p-0 overflow-hidden relative group">
+                            
+                            <!-- Header -->
+                            <div class="bg-amber-950/80 px-3 py-1 flex justify-between items-center border-b border-amber-800">
+                                <span class="text-amber-500 font-bold text-xs super-font">ASYMMETRIC THREAT: CIVILIAN SEALIFT</span>
+                                <span class="text-[10px] text-amber-500 border border-amber-600 px-1">INTELLIGENCE UPDATE</span>
+                            </div>
+
+                            <div class="flex flex-col md:flex-row">
+                                <!-- Image Section -->
+                                <div class="w-full md:w-2/5 h-40 md:h-auto relative border-r border-amber-900/30">
+                                    <img src="https://www.defensemagazine.com/upload/NEWS/2023/NAVY/CHINA/roro.jpg" 
+                                        class="w-full h-full object-cover filter grayscale contrast-125 sepia-[0.4]"
+                                        alt="Chinese RORO Ferry">
+                                    <div class="absolute bottom-0 left-0 bg-black/70 w-full px-2 py-1">
+                                        <span class="text-[10px] text-amber-200 font-mono">TARGET: BOHAI FERRY GROUP</span>
+                                    </div>
+                                </div>
+
+                                <!-- Data Section -->
+                                <div class="w-full md:w-3/5 p-4 bg-[#0f0c05]">
+                                    <div class="space-y-3 font-mono text-xs">
+                                        
+                                        <!-- Stat Row -->
+                                        <div class="flex justify-between border-b border-amber-900/30 pb-1">
+                                            <span class="text-gray-400">UNIT TYPE:</span>
+                                            <span class="text-amber-500 font-bold">RORO (Roll-on/Roll-off)</span>
+                                        </div>
+                                        <div class="flex justify-between border-b border-amber-900/30 pb-1">
+                                            <span class="text-gray-400">SURGE CAPACITY:</span>
+                                            <span class="text-white font-bold">+60,000 TROOPS</span>
+                                        </div>
+                                        
+                                        <!-- Analysis Text -->
+                                        <p class="text-gray-400 leading-tight mt-2">
+                                            <strong class="text-amber-600">TACTICAL SHIFT:</strong> PLA drills confirm use of civilian ferries to launch amphibious craft <span class="text-white">directly onto beaches</span>, bypassing the need to capture ports.
+                                        </p>
+                                        
+                                        <!-- Vulnerability Warning -->
+                                        <div class="bg-amber-900/20 border border-amber-900/50 p-2 mt-2">
+                                            <span class="text-[10px] text-amber-400 block mb-1">> ANALYSIS: VULNERABLE BUT NUMEROUS</span>
+                                            <div class="w-full bg-gray-800 h-1.5 rounded-full overflow-hidden">
+                                                <div class="bg-amber-600 h-full w-[85%]"></div>
+                                            </div>
+                                            <span class="text-[9px] text-gray-500">FLEET VOLUME SATURATION</span>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
                     </div>
+
+                    
+
+                    <!-- Right Col: Status Lists -->
                     <div class="space-y-4">
+                        
+                        <!-- CARRIER STATUS (ACCURATE) -->
                         <div class="hoi-window p-4">
-                            <h4 class="text-gray-300 font-bold mb-2 super-font">Carrier Gap Status</h4>
-                            <ul class="space-y-2 text-sm text-gray-300">
-                                <li class="flex justify-between"><span>USS NIMITZ</span> <span class="text-red-500">OFFLINE (Transit)</span></li>
-                                <li class="flex justify-between"><span>USS TRUMAN</span> <span class="text-amber-500">BUSY (Red Sea)</span></li>
-                                <li class="flex justify-between"><span>USS G. WASHINGTON</span> <span class="text-green-500">ONLINE</span></li>
+                            <div class="flex justify-between items-center mb-3">
+                                <h4 class="text-gray-200 font-bold super-font">Carrier Strike Groups</h4>
+                                <span class="text-[10px] bg-gray-800 border border-gray-600 px-1 text-gray-400">UPDATED DEC 8</span>
+                            </div>
+                            <ul class="space-y-3 text-sm font-mono">
+                                <!-- USS LINCOLN: The only one actually ready in theater -->
+                                <li class="flex justify-between items-center border-b border-gray-800 pb-1">
+                                    <span class="text-blue-400">USS A. LINCOLN</span> 
+                                    <span class="text-green-400 font-bold text-xs bg-green-900/20 px-2 py-0.5 border border-green-900">ONLINE (WestPac)</span>
+                                </li>
+                                <!-- USS GW: In Port -->
+                                <li class="flex justify-between items-center border-b border-gray-800 pb-1">
+                                    <span class="text-gray-400">USS G. WASHINGTON</span> 
+                                    <span class="text-amber-500 font-bold text-xs">IN PORT (Guam)</span>
+                                </li>
+                                <!-- USS FORD: Doing drug busts -->
+                                <li class="flex justify-between items-center border-b border-gray-800 pb-1">
+                                    <span class="text-gray-400">USS G.R. FORD</span> 
+                                    <span class="text-red-400 font-bold text-xs">DIVERTED (Caribbean)</span>
+                                </li>
+                                <!-- USS NIMITZ: Went home -->
+                                <li class="flex justify-between items-center border-b border-gray-800 pb-1">
+                                    <span class="text-gray-500 opacity-50">USS NIMITZ</span> 
+                                    <span class="text-gray-600 font-bold text-xs">DOCKED (San Diego)</span>
+                                </li>
                             </ul>
+                            <div class="mt-3 text-xs text-red-400 italic">
+                                > CRITICAL ALERT: Only 1 Carrier (Lincoln) is combat-ready in the 7th Fleet AOR. 
+                            </div>
                         </div>
-                        <div class="p-4 border border-red-900 bg-red-950/20 rounded">
-                            <h4 class="text-red-500 font-bold">The Yonaguni Fortress</h4>
-                            <p class="text-sm text-gray-400 mt-1">
-                                Koizumi put missiles on Yonaguni (110km from Taiwan). It's a choke point. China must bomb it to break out.
-                            </p>
+
+                        <!-- NEW: ELECTRONIC WARFARE (USS LINCOLN) -->
+                        <div class="p-4 border border-indigo-500/50 bg-indigo-950/10 rounded relative overflow-hidden group">
+                            <div class="absolute top-0 right-0 bg-indigo-600 text-white text-[10px] font-bold px-2 py-0.5 z-10">TECH INTEL</div>
+                            <!-- Background grid effect -->
+                            <div class="absolute inset-0 bg-[linear-gradient(0deg,transparent_24%,rgba(99,102,241,0.1)_25%,rgba(99,102,241,0.1)_26%,transparent_27%,transparent_74%,rgba(99,102,241,0.1)_75%,rgba(99,102,241,0.1)_76%,transparent_77%,transparent),linear-gradient(90deg,transparent_24%,rgba(99,102,241,0.1)_25%,rgba(99,102,241,0.1)_26%,transparent_27%,transparent_74%,rgba(99,102,241,0.1)_75%,rgba(99,102,241,0.1)_76%,transparent_77%,transparent)] bg-[length:30px_30px]"></div>
+                            
+                            <h4 class="text-indigo-400 font-bold mb-2 super-font relative z-10">Spectrum Dominance</h4>
+                            <div class="flex items-start space-x-3 relative z-10">
+                                <div class="text-2xl">📡</div>
+                                <div class="text-sm text-gray-300">
+                                    <p class="mb-2">
+                                        USS Lincoln has deployed <strong>EA-18G Growlers</strong> equipped with the new <span class="text-white font-bold">AN/ALQ-249 Next Gen Jammer (Mid-Band)</span>.
+                                    </p>
+                                    <p class="text-xs text-indigo-300 border-l-2 border-indigo-500 pl-2">
+                                        > EFFECT: Can jam PLA fire-control radars while keeping allied comms open. A massive upgrade over legacy AN/ALQ-99 pods.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="hoi-window danger-window p-4">
-                            <h4 class="text-red-500 font-bold mb-2 super-font">The "Monster" (CCG 2901)</h4>
-                            <p class="text-sm text-gray-300">
-                                12,000-ton cutter. It's bigger than destroyers. Physical ramming imminent.
-                            </p>
+
+                        <!-- YONAGUNI TACTICAL MAP -->
+                        <div class="hoi-window border-red-900 p-0 overflow-hidden relative group mt-4">
+                            
+                            <!-- Header -->
+                            <div class="bg-red-950/80 px-3 py-1 flex justify-between items-center border-b border-red-800">
+                                <span class="text-red-400 font-bold text-xs super-font">FORTRESS YONAGUNI</span>
+                                <span class="text-[10px] text-red-500 animate-pulse">● LIVE FEED</span>
+                            </div>
+
+                            <!-- Map Image Container -->
+                            <div class="relative h-48 bg-black">
+                                <img src="https://www.rfa.org/english/special-reports/yonaguni-island/images/yonaguni-map-02.jpg" 
+                                    class="w-full h-full object-contain object-center group-hover:opacity-100 transition-opacity duration-500"
+                                    alt="Yonaguni Map">
+
+                                <!-- Labels -->
+                                <div class="absolute bottom-20 left-60">
+                                    <span class="text-[10px] font-bold text-white bg-red-700 px-1">TAIWAN</span>
+                                </div>
+                                <div class="absolute top-2 right-40">
+                                    <span class="text-[10px] font-bold text-white bg-blue-700 px-1">YONAGUNI (JPN)</span>
+                                </div>
+                            </div>
+
+                            <!-- Intel Footer -->
+                            <div class="p-3 bg-[#0a0a0a] border-t border-red-900/50">
+                                <div class="flex items-start space-x-2">
+                                    <div class="text-red-500 text-xl">⚠</div>
+                                    <p class="text-xs text-gray-400 leading-tight">
+                                        <strong class="text-white">Choke Point Active.</strong> 
+                                        Type 12 Surface-to-Ship missiles now cover the Miyako Strait. Any PLA Navy breakout attempt must neutralize this island first.
+                                    </p>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -860,6 +1004,11 @@
                     <span class="text-blue-400 group-hover:text-blue-300 font-bold block mb-1">Nikkei</span>
                     <span class="text-gray-400">Takaichi: "I want to meet Trump ASAP"</span>
                 </a>
+                <!-- Source 14 -->
+                <a href="https://news.usni.org/2025/12/11/u-s-strategic-bombers-japanese-anti-ship-fighters-take-flight-amid-japan-china-tensions" target="_blank" class="block p-4 border border-gray-800 bg-black hover:border-blue-500 hover:bg-blue-900/10 transition rounded group">
+                    <span class="text-blue-400 group-hover:text-blue-300 font-bold block mb-1">USNI</span>
+                    <span class="text-gray-400">Nuclear Bombers</span>
+                </a>
 
   
             </div>
@@ -889,7 +1038,7 @@
             <!-- Right: Meta Data -->
             <div class="text-right flex flex-col items-center md:items-end">
                 <span class="opacity-50">https://www.youtube.com/watch?v=Ca-1I8zRIcc</span>
-                <span class="text-[10px] uppercase">OSINT</span>
+                <span class="text-[10px] uppercase">HARDCORE OR DIE</span>
             </div>
         </div>
     </footer>
@@ -897,7 +1046,14 @@
     <!-- Ticker -->
     <div class="ticker-wrap">
         <div class="ticker font-mono text-sm py-1">
-            +++ HAIL SHINZO HAIL SHINZO HAIL SHINZO +++ THIS IS NETOUYO COUNTRY (OORAH!) +++ DEFEATING THE RADICAL LEFT +++ THE ONLY GOOD JAPPU IS A WORKING JAPPU +++ BANZAI! TENNO HEIKA BANZAI! +++ WOLLT IHR DENN TOTALEN KRIEG?! +++ QUANTITATIVE EASING DECLARED +++ +++ HAIL SHINZO HAIL SHINZO HAIL SHINZO +++ THIS IS NETOUYO COUNTRY (OORAH!) +++ DEFEATING THE RADICAL LEFT +++ THE ONLY GOOD JAPPU IS A WORKING JAPPU +++ BANZAI! TENNO HEIKA BANZAI! +++ WOLLT IHR DENN TOTALEN KRIEG?! +++ QUANTITATIVE EASING DECLARED +++
+            <!-- BLOCK 1 -->
+            <span class="ticker-item">
+                +++ HAIL SHINZO HAIL SHINZO HAIL SHINZO +++ THIS IS NETOUYO COUNTRY (OORAH!) +++ DEFEATING THE RADICAL LEFT +++ THE ONLY GOOD JAPPU IS A WORKING JAPPU +++ BANZAI! TENNO HEIKA BANZAI! +++ WOLLT IHR DENN TOTALEN KRIEG?! +++ QUANTITATIVE EASING DECLARED +++ 
+            </span>
+            <!-- BLOCK 2 (IDENTICAL DUPLICATE) -->
+            <span class="ticker-item">
+                +++ HAIL SHINZO HAIL SHINZO HAIL SHINZO +++ THIS IS NETOUYO COUNTRY (OORAH!) +++ DEFEATING THE RADICAL LEFT +++ THE ONLY GOOD JAPPU IS A WORKING JAPPU +++ BANZAI! TENNO HEIKA BANZAI! +++ WOLLT IHR DENN TOTALEN KRIEG?! +++ QUANTITATIVE EASING DECLARED +++ 
+            </span>
         </div>
     </div>
 
@@ -966,7 +1122,7 @@
                 title: "Nuclear B-52s", 
                 desc: "The US Air Force responded. Nuclear-capable B-52 Stratofortresses executed a 'Show of Force' sortie over the Sea of Japan. The nuclear triad is now active.", 
                 type: "military",
-                img: "https://fas.org/wp-content/uploads/2023/04/B-52_B61-7_drop.jpg"
+                img: "https://www.twz.com/wp-content/uploads/2024/06/re-nuclearize-b-52-bombers_46904b.jpg?quality=85g"
             }
         ];
 
