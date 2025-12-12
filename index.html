@@ -11,6 +11,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Ruslan+Display&family=VT323&display=swap" rel="stylesheet">
 
     <style>
+/* --- COUNTDOWN TIMER STYLES --- */
+        .countdown-box {
+            background: #000;
+            border: 2px solid #8a1c1c;
+            color: #ff3333;
+            font-family: 'VT323', monospace;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.5);
+            position: relative;
+            overflow: hidden;
+            text-align: center;
+            padding: 1rem;
+        }
+        
+        /* Scanline specifically for the timer */
+        .countdown-box::before {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.1) 50%);
+            background-size: 100% 4px;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        /* The Ticking Numbers */
+        #countdown {
+            /* This ensures the text scales between 1.5rem and 3.5rem depending on screen width */
+            font-size: clamp(1.8rem, 4vw, 3.5rem);
+            line-height: 1;
+            letter-spacing: 2px; /* Reduced spacing slightly to prevent cutting */
+            font-variant-numeric: tabular-nums; /* Keeps numbers from jumping around */
+            white-space: nowrap; /* Forces it to stay on one line */
+        }
+
         .ally-window {
             border-color: #10b981; /* Emerald Green */
             box-shadow: 0 0 0 2px #000, 0 0 15px rgba(16, 185, 129, 0.4);
@@ -310,12 +348,16 @@
         <div id="view-dashboard" class="animate-fade-in space-y-12">
             <!-- Intro -->
             <section class="text-center max-w-4xl mx-auto space-y-4">
-                <h2 class="text-4xl md:text-6xl font-bold text-white glitch mb-4 super-font" data-text="THE SANA SHOCK">
-                    THE SANA SHOCK
+                <h2 class="text-4xl md:text-6xl font-bold text-white glitch mb-4 super-font" data-text="日本終了">
+                    日本終了
                 </h2>
                 <div class="hoi-window p-6 text-left text-base">
-                    <span class="text-red-500">> DETECTED: EXISTENTIAL_CRISIS_PROTOCOL</span><br>
-                    <span class="text-amber-500">> WARNING: "Shi Ke Ren" Ultimatum Active</span><br>
+                    <div class="p-3 bg-black/50 rounded border border-gray-700 font-mono text-xs text-green-400">
+                        > TARGET: TAKAICHI<br>
+                        > DETECTED: EXISTENTIAL_CRISIS_PROTOCOL.EXE<br>
+                        > WARNING: Ultimatum Active<br>
+                        > RESULT: Restraint = 0
+                    </div>
                     <span class="text-gray-300 block mt-4 leading-relaxed">
                         So, Japan took the path of the glorious death over the slow decline. The LDP Kamikaze has begun. PM Takaichi has linked Japan's survival to Taiwan, bypassing Article 9. Beijing has deployed over 100 ships and radar-locked Japanese fighters. The moderates are gone. This is the Season Finale of East Asia. Rise and shine, Mister Freeman.
                     </span>
@@ -353,7 +395,7 @@
                 </div>
                 <div class="space-y-4 text-gray-300">
                     <p>
-                        On Dec 10, China dropped the <span class="text-white font-bold bg-red-900/50 px-1">"Absolutely Intolerable"</span> (是可忍，孰不可忍) line in state media. 
+                        On Dec 10, China dropped the <span class="text-white font-bold bg-red-900/50 px-1">"Absolutely Intolerable"</span> (<span class="text-2xl md:text-2xl text-red-600 font-black z-10 relative" style="font-family: 'Times New Roman', serif;">是可忍，孰不可忍</span>) line in state media. 
                     </p>
                     <p>
                         Historically, war starts <strong>30-60 days</strong> after they say this line.
@@ -472,6 +514,43 @@
                     <!-- Bottom Warning Ticker within the card -->
                     <div class="bg-red-900 text-black text-[10px] font-bold text-center py-1 tracking-[0.2em] animate-pulse">
                         You thought Hiroshima was bad?
+                    </div>
+                </div>
+            </section>
+            <!-- BOSS TIMER: NANJING ANNIVERSARY -->
+            <section class="grid grid-cols-1 md:grid-cols-12 gap-4 mb-8">
+                
+                <!-- Context Box -->
+                <div class="md:col-span-7 bg-red-950/20 border border-red-900 p-6 flex flex-col justify-center items-start relative overflow-hidden group">
+                    <div class="absolute inset-0 bg-[url('https://www.transparenttextures.com/patterns/diagmonds-light.png')] opacity-10"></div>
+                    
+                    <div class="flex items-center space-x-2 mb-2">
+                        <span class="w-2 h-2 bg-red-500 animate-pulse rounded-full"></span>
+                        <h2 class="text-red-500 text-xs tracking-[0.3em] super-font">SERVER WIPE EVENT</h2>
+                    </div>
+                    
+                    <h3 class="text-4xl md:text-5xl text-white font-black super-font glitch mb-2" data-text="NANJING ANNIVERSARY">NANJING ANNIVERSARY</h3>
+                    
+                    <p class="text-gray-400 font-mono text-sm leading-relaxed max-w-2xl">
+                        The day the Aggro Meter hits 1000%."<br>
+                        China likes their revenge, after all.
+                        <span class="text-red-500 font-bold block mt-1">IF THEY STRIKE, IT WILL BE THEN.</span>
+                    </p>
+                </div>
+
+                <!-- The Clock -->
+                <div class="md:col-span-5 countdown-box flex flex-col justify-center items-center shadow-[0_0_20px_rgba(138,28,28,0.2)]">
+                    <div class="text-xs text-gray-500 tracking-widest mb-1 font-sans">T-MINUS TO ZERO HOUR</div>
+                    
+                    <!-- The JS targets this ID -->
+                    <div id="countdown" class="text-5xl md:text-6xl font-bold text-red-500 font-mono tracking-tighter drop-shadow-[0_0_10px_rgba(239,68,68,0.8)]"></div>
+                    
+                    <div class="w-full h-1 bg-gray-900 mt-2 rounded overflow-hidden">
+                        <div class="h-full bg-red-600 animate-pulse" style="width: 88%"></div>
+                    </div>
+                    <div class="flex justify-between w-full text-[10px] text-red-800 mt-1 px-1 font-bold">
+                        <span>SYNCED: ATOMIC CLOCK</span>
+                        <span>DEFCON 2</span>
                     </div>
                 </div>
             </section>
@@ -1116,7 +1195,7 @@
             },
             { 
                 date: "Nov 7", 
-                title: "The Survival Doctrine", 
+                title: "Sanae Statement", 
                 desc: "The Rubicon is crossed. PM Sanae Takaichi officially linked the 'Existential Survival' of Japan to the defense of Taiwan. This legally mandates the JSDF to deploy alongside US forces.", 
                 type: "trigger",
                 img: null
@@ -1137,8 +1216,8 @@
             },
             { 
                 date: "Dec 2", 
-                title: "The Legal Accelerant", 
-                desc: "Trump signed the Taiwan Assurance Act. The 'One China Policy' is effectively dead. US, Japan, and Taiwan are now a de facto tripartite military alliance.", 
+                title: "Taiwan Act", 
+                desc: "Trump signed the Taiwan Assurance Act. The 'One China Policy' is effectively dead. US, Japan, and Taiwan have solidified their alliance.", 
                 type: "trigger",
                 img: null
             },
@@ -1201,31 +1280,61 @@
         const detailDesc = document.getElementById('detail-desc');
         const detailTag = document.getElementById('detail-tag');
 
+        // --- UPDATED RENDER TIMELINE (Compact Log Style) ---
         function renderTimeline() {
             if(!timelineContainer) return;
             timelineContainer.innerHTML = '';
+            
+            // Draw the vertical line (adjusted position for compact view)
             const line = document.createElement('div');
-            line.className = 'timeline-line';
+            line.className = 'timeline-line absolute left-[9px] top-0 bottom-0 width-px bg-gray-800 z-0';
+            line.style.width = '1px';
             timelineContainer.appendChild(line);
 
             timelineData.forEach((item, index) => {
                 const el = document.createElement('div');
-                el.className = 'relative flex items-center group cursor-pointer hover:bg-red-900/20 p-2 transition-colors';
+                // Added border-b for that "log list" feel
+                el.className = 'relative flex items-start group cursor-pointer hover:bg-red-900/10 py-2 transition-colors border-b border-gray-800/50';
                 el.onclick = () => showDetail(index);
                 
-                let dotColor = item.type === 'trigger' ? 'text-red-500' : (item.type === 'kinetic' ? 'text-amber-500' : (item.type === 'military' ? 'text-gray-300' : 'text-gray-500'));
-                
-                el.innerHTML = `
-                    <div class="timeline-dot absolute left-[19px] w-2 h-2 rounded-full bg-current ${dotColor}"></div>
-                    <div class="ml-10">
-                        <span class="text-sm text-gray-500 uppercase">${item.date}</span>
-                        <h4 class="text-base font-semibold text-gray-200 group-hover:text-red-500 transition-colors super-font">${item.title}</h4>
+                // 1. Determine Dot Color
+                let dotColor = 'text-gray-600';
+                if (item.type === 'trigger') dotColor = 'text-red-600';
+                if (item.type === 'kinetic') dotColor = 'text-amber-600';
+                if (item.type === 'military') dotColor = 'text-gray-400';
+
+                // 2. Generate the Tag
+                let tagHTML = '';
+                if (item.title.toLowerCase().includes('nuclear') || item.title.includes('B-52')) {
+                    tagHTML = '<span class="bg-red-900 text-white px-1 text-[10px] mr-2 border border-red-600 tracking-wider inline-block">NUCLEAR</span>';
+                }
+                else if (item.type === 'trigger') {
+                    tagHTML = '<span class="bg-red-900 text-white px-1 text-[10px] mr-2 border border-red-500 tracking-wider inline-block">ULTIMATUM</span>';
+                }
+                else if (item.type === 'kinetic') {
+                    tagHTML = '<span class="bg-amber-900 text-white px-1 text-[10px] mr-2 border border-amber-500 tracking-wider inline-block">KINETIC</span>';
+                }
+                else if (item.type === 'military') {
+                    tagHTML = '<span class="bg-gray-800 text-gray-400 px-1 text-[10px] mr-2 border border-gray-600 tracking-wider inline-block">OPS</span>';
+                }
+
+                // 3. Build the Compact Row HTML
+                // Key changes: text-xs, text-sm, ml-6 (tighter margin)
+                el.innerHTML = `                    
+                    <div class="ml-6 w-full flex items-baseline">
+                        <!-- Date Column -->
+                        <span class="w-14 shrink-0 text-[10px] font-bold text-red-400/70 font-mono pt-0.5">${item.date.toUpperCase()}</span>
+                        
+                        <!-- Content Column -->
+                        <div class="flex-1 leading-tight">
+                             ${tagHTML}<span class="text-sm ${dotColor} group-hover:text-white transition-colors font-mono">${item.title}</span>
+                        </div>
                     </div>
                 `;
                 timelineContainer.appendChild(el);
             });
         }
-
+        
         /* --- UPDATED SHOW DETAIL FUNCTION --- */
         function showDetail(index) {
             const item = timelineData[index];
@@ -1266,6 +1375,49 @@
                 img.src = "";
             }
         }
+
+        // --- BOSS TIMER LOGIC ---
+        function startBossTimer() {
+            const timerDisplay = document.getElementById('countdown');
+            if (!timerDisplay) return;
+
+            // TARGET DATE: Dec 13, 2025 at 00:00:00
+            let targetDate = new Date("December 13, 2025 00:00:00").getTime();
+
+            // --- FOR TESTING/ROLEPLAY ONLY: ---
+            // Uncomment the next line to force the timer to always show ~42 hours remaining (for screenshot/demo purposes)
+            // targetDate = new Date().getTime() + (42 * 60 * 60 * 1000) + (15 * 60 * 1000); 
+
+            const updateTimer = setInterval(function() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+
+                // Calculations
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+                // Formatting with leading zeros
+                const dStr = days < 10 ? "0" + days : days;
+                const hStr = hours < 10 ? "0" + hours : hours;
+                const mStr = minutes < 10 ? "0" + minutes : minutes;
+                const sStr = seconds < 10 ? "0" + seconds : seconds;
+
+                // Display
+                if (distance < 0) {
+                    clearInterval(updateTimer);
+                    timerDisplay.innerHTML = "EVENT STARTED";
+                    timerDisplay.classList.add("text-red-600", "animate-pulse");
+                } else {
+                    // Format: DD:HH:MM:SS
+                    timerDisplay.innerHTML = `${dStr}:${hStr}:${mStr}:${sStr}`;
+                }
+            }, 1000);
+        }
+
+        // Initialize the timer when window loads
+        window.addEventListener('load', startBossTimer);
         
         // --- Tab Logic ---
         function switchTab(tab) {
