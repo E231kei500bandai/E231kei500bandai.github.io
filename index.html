@@ -85,16 +85,16 @@
             height: 2px;
             background: linear-gradient(90deg, transparent, #39ff14);
             transform-origin: 0% 0%;
-            animation: radar-spin 2s infinite linear;
+            animation: radar-spin 12s infinite linear;
             box-shadow: 0 0 10px #39ff14;
         }
         .radar-dot {
             position: absolute;
             width: 4px;
             height: 4px;
-            background: #ff0000;
+            background: #5b8947d2;
             border-radius: 50%;
-            box-shadow: 0 0 5px #ff0000;
+            box-shadow: 0 0 5px #5b8947d2;
             opacity: 0;
             animation: blip 2s infinite;
         }
@@ -466,7 +466,9 @@
                         <div class="md:col-span-6 p-6 flex flex-col justify-center bg-gradient-to-r from-[#1c1c1c] to-[#111]">
                             <h4 class="text-red-500 text-xl mb-2 super-font">"I would bomb the shit out of 'em."</h4>
                             <p class="text-gray-300 text-sm leading-relaxed mb-4">
-                                Dec 11, 2025: Escalation has reached the nuclear threshold. Following Sino-Russian bomber patrols, the US has deployed <strong>B-52 Stratofortresses</strong> to the Sea of Japan.
+                                Dec 9, 2025: Russian Tu-95 bombers, alongside Chinese H-6 bombers, conducted a long distance joint flight from the East China Sea to the Pacific Ocean off the coast of the main island of Shikoku.
+                                <br>
+                                Dec 11, 2025: Following Sino-Russian bomber patrols, the US has deployed <strong>B-52 Stratofortresses</strong> to the Sea of Japan.
                             </p>
                             <div class="bg-red-950/30 border border-red-900 p-3 rounded">
                                 <p class="text-xs text-red-300 font-mono">
@@ -923,7 +925,7 @@
                             </div>
                             <div class="text-center mt-2">
                                 <span class="text-[10px] text-gray-500 font-mono">
-                                    NOTE: Nov 15 dip correlates with "Calm before the Storm." Nov 30 peak correlates with Chinese Fleet mobilization.
+                                    Pizza time.
                                 </span>
                             </div>
                         </div>
@@ -963,7 +965,7 @@
                                         <span class="text-amber-500 font-bold">SURGE</span>
                                     </div>
                                     <p class="text-gray-200">"The closest Papa Johns... reporting above average traffic. Pentagon subway station reporting high traffic."</p>
-                                    <p class="text-[10px] text-amber-500 mt-1">>> CORRELATION: 100-Ship Surge begins. Taiwan Assurance Act signed.</p>
+                                    <p class="text-[10px] text-amber-500 mt-1">>> CORRELATION: Taiwan Assurance Act signed. Tthe Japan/China Coast Guard standoff occurred.</p>
                                 </div>
 
                                 <!-- Nov 30 -->
@@ -973,7 +975,7 @@
                                         <span class="text-yellow-500 font-bold">SPIKE</span>
                                     </div>
                                     <p class="text-gray-200">"The closest Dominos to the Pentagon has surged in traffic."</p>
-                                    <p class="text-[10px] text-amber-500 mt-1">>> CORRELATION: US/Japan Intel sharing on "Surprise Attack" warnings.</p>
+                                    <p class="text-[10px] text-amber-500 mt-1">>> CORRELATION: US/Japan Intel sharing on 100 ship surge.</p>
                                 </div>
 
                                 <!-- Nov 19 -->
@@ -1361,6 +1363,13 @@
                 img: "https://theaviationist.com/wp-content/uploads/2025/12/PLAN_Shenyang_J-15_carrier-based_fighter_aircraft_20250608_-_1.jpg"
             },
             { 
+                date: "Dec 9", 
+                title: "Ambiguity Doctrine", 
+                desc: "White House Press Secretary Leavitt stated the US seeks a strong alliance with Japan while also building a good cooperative relationship with China. This statement, intended to de-escalate, reintroduces strategic ambiguity at the moment of highest tension. The US support Japan was banking on now appears conditional.", 
+                type: "diplomatic",
+                img: "https://dims.apnews.com/dims4/default/125397d/2147483647/strip/true/crop/8640x5760+0+0/resize/599x399!/quality/90/?url=https%3A%2F%2Fassets.apnews.com%2F2c%2F39%2Fd9dd4f6a87ed813c7538fdff7d25%2F67b54742c4ee43629e67edde96b60d38"
+            },
+            { 
                 date: "Dec 10", 
                 title: "FINAL ULTIMATUM", 
                 desc: "State media published 'Shi ke ren, shu bu ke ren' (If this can be tolerated, what cannot?). War is no longer a probability; it is a scheduled event.", 
@@ -1373,7 +1382,8 @@
                 desc: "The US Air Force responded. Nuclear-capable B-52 Stratofortresses executed a 'Show of Force' sortie over the Sea of Japan. The nuclear triad is now active.", 
                 type: "military",
                 img: "https://www.twz.com/wp-content/uploads/2024/06/re-nuclearize-b-52-bombers_46904b.jpg?quality=85g"
-            }
+            },
+
         ];
 
         // --- View Logic ---
@@ -1622,22 +1632,23 @@
                 new Chart(document.getElementById('pizzaChart'), {
                     type: 'line',
                     data: {
-                        labels: ['Oct 31', 'Nov 1', 'Nov 7', 'Nov 12', 'Nov 15', 'Nov 19', 'Nov 30', 'Dec 2', 'Dec 7', 'Dec 10'],
+                        labels: ['Oct 31', 'Nov 1', 'Nov 7', 'Nov 12', 'Nov 15', 'Nov 18', 'Nov 23', 'Nov 30', 'Dec 2', 'Dec 7', 'Dec 10'],
                         datasets: [
                             { 
                                 label: 'Pentagon Activity Index', 
                                 // Data mapped from your report:
                                 // Oct 31: Low (20)
-                                // Nov 1: Surge (80)
+                                // Nov 1: Surge (90)
                                 // Nov 7: High (75)
                                 // Nov 12: Mixed/Avg (40)
                                 // Nov 15: Abnormally Low (10)
-                                // Nov 19: Classic Indicator (85)
-                                // Nov 30: SURGE/PEAK (100)
+                                // Nov 18: Classic Indicator (75)
+                                // Nov 23: High (80)
+                                // Nov 30: Surge (95)
                                 // Dec 2: High (90)
-                                // Dec 7: High/Radar Lock (95)
+                                // Dec 7: High/Radar Lock (93)
                                 // Dec 10: Sustained (88)
-                                data: [20, 80, 75, 40, 10, 85, 100, 90, 95, 88], 
+                                data: [20, 90, 75, 40, 10, 75, 80, 95, 90, 93, 88], 
                                 borderColor: '#f59e0b', // Amber
                                 backgroundColor: 'rgba(245, 158, 11, 0.1)',
                                 borderWidth: 3,
@@ -1664,9 +1675,11 @@
                                     afterLabel: function(context) {
                                         // Custom Tooltips for key dates
                                         const notes = {
-                                            'Nov 1': 'Takaichi/Taiwan Meet',
-                                            'Nov 15': 'Calm Before Storm',
+                                            'Nov 1': 'Takaichi meets Taiwan offical',
+                                            'Nov 7': 'Takaichi Survival Crisis',
+                                            'Nov 18': 'US Senate passes Taiwan Assurance Act',
                                             'Nov 30': '100-Ship Surge Detected',
+                                            "Dec 2": "Trump Signs Taiwan Act / Coast Guard Standoff",
                                             'Dec 7': 'Radar Lock Incident',
                                             'Dec 10': 'Ultimatum Issued'
                                         };
