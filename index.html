@@ -11,7 +11,20 @@
     <link href="https://fonts.googleapis.com/css2?family=Ruslan+Display&family=VT323&display=swap" rel="stylesheet">
 
     <style>
-/* --- COUNTDOWN TIMER STYLES --- */
+        .pizza-glow {
+            box-shadow: 0 0 15px #f59e0b;
+            animation: pizza-pulse 2s infinite;
+        }
+        @keyframes pizza-pulse {
+            0% { box-shadow: 0 0 5px #f59e0b; border-color: #78350f; }
+            50% { box-shadow: 0 0 20px #f59e0b; border-color: #f59e0b; }
+            100% { box-shadow: 0 0 5px #f59e0b; border-color: #78350f; }
+        }
+        .gay-bar-offline {
+            background: repeating-linear-gradient(45deg, #1a1a1a, #1a1a1a 10px, #2a0a2a 10px, #2a0a2a 20px);
+        }
+
+        /* --- COUNTDOWN TIMER STYLES --- */
         .countdown-box {
             background: #000;
             border: 2px solid #8a1c1c;
@@ -597,8 +610,9 @@
                 <div class="flex flex-wrap gap-4 border-b-2 border-gray-800 mb-8 pb-2">
                     <button class="tab-btn active text-lg px-4 py-2" onclick="switchTab('military')">MILITARY OPS</button>
                     <button class="tab-btn text-lg px-4 py-2 text-gray-500" onclick="switchTab('overmatch')">OVERMATCH BRIEF</button>
-                    <button class="tab-btn text-lg px-4 py-2 text-gray-500" onclick="switchTab('eco')">ECONOMIC WAREFARE</button>
+                    <button class="tab-btn text-lg px-4 py-2 text-gray-500" onclick="switchTab('eco')">ECONOMIC WARFARE</button>
                     <button class="tab-btn text-lg px-4 py-2 text-gray-500" onclick="switchTab('legal')">LEGAL</button>
+                    <button class="tab-btn text-lg px-4 py-2 text-gray-500" onclick="switchTab('pizza')">PIZZA</button>
                 </div>
 
                 <!-- Tab: Military (UPDATED with USNI Data) -->
@@ -874,6 +888,117 @@
                         <div class="p-2 bg-red-900/20 border border-red-900 text-sm text-red-300 mt-2">
                             Result: Activates Collective Self-Defense. Japan is legally bound to fight.
                         </div>
+                    </div>
+                </div>
+
+                <!-- Tab: Pizza Intel -->
+                <div id="tab-pizza" class="hidden grid-cols-1 lg:grid-cols-12 gap-8 animate-fade-in">
+                    
+                    <!-- Left Column: The Indicators (4 cols) -->
+                    <div class="lg:col-span-4 space-y-6">
+
+                        <!-- Explainer Box -->
+                        <div class="hoi-window p-4 bg-gray-900/50">
+                            <h4 class="text-gray-300 font-bold text-xs mb-2 uppercase">Methodology</h4>
+                            <p class="text-[11px] text-gray-500 font-mono leading-relaxed">
+                                Tracking mobile device data density at:
+                                <br>- Papa John's (2 locations)
+                                <br>- Domino's (S. Fern St)
+                                <br>- Nighthawk Brewery
+                                <br><br>
+                                <strong>Theory:</strong> Sudden spikes in fast food orders at 0200-0400 hours indicate revoked shore leave and emergency strategic planning sessions.
+                            </p>
+                        </div>
+
+                    </div>
+
+                    <!-- Right Column: Chart & Feed (8 cols) -->
+                    <div class="lg:col-span-8 space-y-6">
+                        
+                <!-- Correlation Chart -->
+                        <div class="hoi-window p-4">
+                            <h4 class="text-amber-500 text-sm mb-4 super-font text-center">Pentagon Operational Tempo (Based on Pizza Orders)</h4>
+                            <div class="chart-container h-64">
+                                <canvas id="pizzaChart"></canvas>
+                            </div>
+                            <div class="text-center mt-2">
+                                <span class="text-[10px] text-gray-500 font-mono">
+                                    NOTE: Nov 15 dip correlates with "Calm before the Storm." Nov 30 peak correlates with Chinese Fleet mobilization.
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- The Feed -->
+                        <div class="hoi-window p-0 border-gray-700 bg-black">
+                            <div class="bg-gray-900 px-4 py-2 border-b border-gray-700 flex justify-between items-center">
+                                <span class="text-xs text-gray-400 font-mono">RAW DATA FEED: @PenPizzaReport</span>
+                                <div class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></div>
+                            </div>
+                            <div class="h-64 overflow-y-auto p-4 space-y-4 custom-scrollbar font-mono text-xs">
+                                
+                                <!-- Dec 10 -->
+                                <div class="border-l-2 border-red-500 pl-3">
+                                    <div class="flex justify-between text-gray-500 mb-1">
+                                        <span>DEC 10, 2025 - 19:16 ET</span>
+                                        <span class="text-red-500 font-bold">DEFCON 2</span>
+                                    </div>
+                                    <p class="text-gray-200">"The closest pizzerias to the Pentagon continue to have above average traffic."</p>
+                                    <p class="text-[10px] text-amber-500 mt-1">>> CORRELATION: "Shi Ke Ren" Ultimatum issued by Beijing.</p>
+                                </div>
+
+                                <!-- Dec 7 -->
+                                <div class="border-l-2 border-amber-500 pl-3">
+                                    <div class="flex justify-between text-gray-500 mb-1">
+                                        <span>DEC 07, 2025 - 15:20 ET</span>
+                                        <span class="text-amber-500 font-bold">HIGH ACTIVITY</span>
+                                    </div>
+                                    <p class="text-gray-200">"Various pizzerias nearby the Pentagon are reporting high levels of activity."</p>
+                                    <p class="text-[10px] text-amber-500 mt-1">>> CORRELATION: Radar Lock Incident (30 mins). Hotline Dead.</p>
+                                </div>
+
+                                <!-- Dec 3 -->
+                                <div class="border-l-2 border-amber-500 pl-3">
+                                    <div class="flex justify-between text-gray-500 mb-1">
+                                        <span>DEC 03, 2025 - 18:22 ET</span>
+                                        <span class="text-amber-500 font-bold">SURGE</span>
+                                    </div>
+                                    <p class="text-gray-200">"The closest Papa Johns... reporting above average traffic. Pentagon subway station reporting high traffic."</p>
+                                    <p class="text-[10px] text-amber-500 mt-1">>> CORRELATION: 100-Ship Surge begins. Taiwan Assurance Act signed.</p>
+                                </div>
+
+                                <!-- Nov 30 -->
+                                <div class="border-l-2 border-yellow-500 pl-3">
+                                    <div class="flex justify-between text-gray-500 mb-1">
+                                        <span>NOV 30, 2025 - 17:33 ET</span>
+                                        <span class="text-yellow-500 font-bold">SPIKE</span>
+                                    </div>
+                                    <p class="text-gray-200">"The closest Dominos to the Pentagon has surged in traffic."</p>
+                                    <p class="text-[10px] text-amber-500 mt-1">>> CORRELATION: US/Japan Intel sharing on "Surprise Attack" warnings.</p>
+                                </div>
+
+                                <!-- Nov 19 -->
+                                <div class="border-l-2 border-yellow-500 pl-3">
+                                    <div class="flex justify-between text-gray-500 mb-1">
+                                        <span>NOV 19, 2025 - 23:45 ET</span>
+                                        <span class="text-yellow-500 font-bold">LATE NIGHT</span>
+                                    </div>
+                                    <p class="text-gray-200">"Less than 20 minutes to close... Dominos still reporting above average traffic. Freddie's reporting below average. Classic indicator."</p>
+                                    <p class="text-[10px] text-amber-500 mt-1">>> CORRELATION: US Senate passes Taiwan Bill. Wang Yi "Red Line" prep.</p>
+                                </div>
+
+                                <!-- Oct 31 -->
+                                <div class="border-l-2 border-gray-600 pl-3 opacity-50">
+                                    <div class="flex justify-between text-gray-500 mb-1">
+                                        <span>OCT 31, 2025 - 22:21 ET</span>
+                                        <span class="text-gray-500 font-bold">CALM</span>
+                                    </div>
+                                    <p class="text-gray-200">"Abnormally low traffic... Freddies reporting below average."</p>
+                                    <p class="text-[10px] text-gray-500 mt-1">>> STATUS: The calm before the APEC disaster.</p>
+                                </div>
+
+                            </div>
+                        </div>
+
                     </div>
                 </div>
             </section>
@@ -1421,7 +1546,7 @@
         
         // --- Tab Logic ---
         function switchTab(tab) {
-            ['military', 'overmatch', 'eco', 'legal'].forEach(t => {
+            ['military', 'overmatch', 'eco', 'legal', 'pizza'].forEach(t => {
                 const content = document.getElementById(`tab-${t}`);
                 if (content) {
                     if (t === tab) {
@@ -1489,6 +1614,86 @@
                         labels: ['China (Deployed)', 'USA (Deployed)'],
                         datasets: [{ label: 'Hypersonic Missiles', data: [600, 0], backgroundColor: ['#8a1c1c', '#3a3a3a'], borderWidth: 2, borderColor: '#000' }]
                     }, options: hoiOptions
+                });
+            }
+
+            // --- PIZZA CHART (ACCURATE & SIMPLIFIED) ---
+            if(document.getElementById('pizzaChart')) {
+                new Chart(document.getElementById('pizzaChart'), {
+                    type: 'line',
+                    data: {
+                        labels: ['Oct 31', 'Nov 1', 'Nov 7', 'Nov 12', 'Nov 15', 'Nov 19', 'Nov 30', 'Dec 2', 'Dec 7', 'Dec 10'],
+                        datasets: [
+                            { 
+                                label: 'Pentagon Activity Index', 
+                                // Data mapped from your report:
+                                // Oct 31: Low (20)
+                                // Nov 1: Surge (80)
+                                // Nov 7: High (75)
+                                // Nov 12: Mixed/Avg (40)
+                                // Nov 15: Abnormally Low (10)
+                                // Nov 19: Classic Indicator (85)
+                                // Nov 30: SURGE/PEAK (100)
+                                // Dec 2: High (90)
+                                // Dec 7: High/Radar Lock (95)
+                                // Dec 10: Sustained (88)
+                                data: [20, 80, 75, 40, 10, 85, 100, 90, 95, 88], 
+                                borderColor: '#f59e0b', // Amber
+                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                                borderWidth: 3,
+                                pointBackgroundColor: '#000',
+                                pointBorderColor: '#f59e0b',
+                                pointRadius: 4,
+                                pointHoverRadius: 6,
+                                tension: 0.2, // Sharper lines to look more technical
+                                fill: true
+                            }
+                        ]
+                    }, 
+                    options: {
+                        responsive: true,
+                        maintainAspectRatio: false,
+                        interaction: { mode: 'index', intersect: false },
+                        plugins: { 
+                            legend: { display: false },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        return ' Activity Level: ' + context.raw + '%';
+                                    },
+                                    afterLabel: function(context) {
+                                        // Custom Tooltips for key dates
+                                        const notes = {
+                                            'Nov 1': 'Takaichi/Taiwan Meet',
+                                            'Nov 15': 'Calm Before Storm',
+                                            'Nov 30': '100-Ship Surge Detected',
+                                            'Dec 7': 'Radar Lock Incident',
+                                            'Dec 10': 'Ultimatum Issued'
+                                        };
+                                        return notes[context.label] ? ' > EVENT: ' + notes[context.label] : '';
+                                    }
+                                },
+                                backgroundColor: '#000',
+                                titleColor: '#f59e0b',
+                                bodyFont: { family: 'VT323', size: 14 },
+                                borderColor: '#f59e0b',
+                                borderWidth: 1
+                            }
+                        },
+                        scales: {
+                            x: { 
+                                grid: { color: '#333' }, 
+                                ticks: { color: '#ccc', font: { family: 'VT323' } } 
+                            },
+                            y: { 
+                                min: 0,
+                                max: 110, // Give headroom for the peak
+                                grid: { color: '#333' }, 
+                                ticks: { color: '#f59e0b', font: { family: 'VT323' } },
+                                title: { display: true, text: 'OPERATIONAL TEMPO', color: '#666', font: { size: 10 } }
+                            }
+                        }
+                    }
                 });
             }
 
