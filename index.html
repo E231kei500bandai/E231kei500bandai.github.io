@@ -679,17 +679,17 @@
                                 <!-- USS LINCOLN -->
                                 <li class="flex justify-between items-center border-b border-gray-800 pb-1">
                                     <span class="text-blue-400">USS A. LINCOLN</span> 
-                                    <span class="text-green-400 font-bold text-xs bg-green-900/20 px-2 py-0.5 border border-green-900">ACTIVE (Guam/Phil Sea)</span>
+                                    <span class="text-green-400 font-bold text-xs bg-green-900/20 px-2 py-0.5 border border-green-900">ACTIVE (Philippine Sea)</span>
+                                </li>
+                                <!-- USS TRIPOLI -->
+                                <li class="flex justify-between items-center border-b border-gray-800 pb-1">
+                                    <span class="text-blue-300">USS TRIPOLI (LHA-7)</span> 
+                                    <span class="text-green-400 font-bold text-xs">ACTIVE (East China Sea)</span>
                                 </li>
                                 <!-- USS GW -->
                                 <li class="flex justify-between items-center border-b border-gray-800 pb-1">
                                     <span class="text-gray-400">USS G. WASHINGTON</span> 
                                     <span class="text-amber-500 font-bold text-xs">IN PORT (Yokosuka)</span>
-                                </li>
-                                <!-- USS TRIPOLI -->
-                                <li class="flex justify-between items-center border-b border-gray-800 pb-1">
-                                    <span class="text-blue-300">USS TRIPOLI (LHA-7)</span> 
-                                    <span class="text-green-400 font-bold text-xs">ACTIVE (S. China Sea)</span>
                                 </li>
                                 <!-- USS FORD -->
                                 <li class="flex justify-between items-center border-b border-gray-800 pb-1">
@@ -1732,86 +1732,98 @@
 
             // --- PIZZA CHART (ACCURATE & SIMPLIFIED) ---
             if(document.getElementById('pizzaChart')) {
-                new Chart(document.getElementById('pizzaChart'), {
-                    type: 'line',
-                    data: {
-                        labels: ['Oct 31', 'Nov 1', 'Nov 7', 'Nov 12', 'Nov 15', 'Nov 18', 'Nov 23', 'Nov 30', 'Dec 2', 'Dec 7', 'Dec 10'],
-                        datasets: [
-                            { 
-                                label: 'Pentagon Activity Index', 
-                                // Data mapped from your report:
-                                // Oct 31: Low (20)
-                                // Nov 1: Surge (90)
-                                // Nov 7: High (75)
-                                // Nov 12: Mixed/Avg (40)
-                                // Nov 15: Abnormally Low (10)
-                                // Nov 18: Classic Indicator (75)
-                                // Nov 23: High (80)
-                                // Nov 30: Surge (95)
-                                // Dec 2: High (90)
-                                // Dec 7: High/Radar Lock (93)
-                                // Dec 10: Sustained (88)
-                                data: [20, 90, 75, 40, 10, 75, 80, 95, 90, 93, 88], 
-                                borderColor: '#f59e0b', // Amber
-                                backgroundColor: 'rgba(245, 158, 11, 0.1)',
-                                borderWidth: 3,
-                                pointBackgroundColor: '#000',
-                                pointBorderColor: '#f59e0b',
-                                pointRadius: 4,
-                                pointHoverRadius: 6,
-                                tension: 0.2, // Sharper lines to look more technical
-                                fill: true
-                            }
-                        ]
-                    }, 
-                    options: {
-                        responsive: true,
-                        maintainAspectRatio: false,
-                        interaction: { mode: 'index', intersect: false },
-                        plugins: { 
-                            legend: { display: false },
-                            tooltip: {
-                                callbacks: {
-                                    label: function(context) {
-                                        return ' Activity Level: ' + context.raw + '%';
-                                    },
-                                    afterLabel: function(context) {
-                                        // Custom Tooltips for key dates
-                                        const notes = {
-                                            'Nov 1': 'Takaichi meets Taiwan offical',
-                                            'Nov 7': 'Takaichi Survival Crisis',
-                                            'Nov 18': 'US Senate passes Taiwan Assurance Act',
-                                            'Nov 30': '100-Ship Surge Detected',
-                                            "Dec 2": "Trump Signs Taiwan Act / Coast Guard Standoff",
-                                            'Dec 7': 'Radar Lock Incident',
-                                            'Dec 10': 'Ultimatum Issued'
-                                        };
-                                        return notes[context.label] ? ' > EVENT: ' + notes[context.label] : '';
-                                    }
+            new Chart(document.getElementById('pizzaChart'), {
+                type: 'line',
+                data: {
+                    labels: [
+                        'Oct 31', 'Nov 1', 'Nov 7', 'Nov 12', 'Nov 15', 'Nov 18', 
+                        'Nov 23', 'Nov 30', 'Dec 2', 'Dec 7', 'Dec 10', 
+                        'Dec 12', 'Dec 13', 'Dec 16', 'Dec 17', 'Dec 18'
+                    ],
+                    datasets: [
+                        { 
+                            label: 'Pentagon Activity Index', 
+                            // Data mapped from Pizza Index Reports:
+                            // Oct 31: Low (20)
+                            // Nov 1: Surge (90)
+                            // Nov 7: High (75)
+                            // Nov 12: Mixed/Avg (40)
+                            // Nov 15: Abnormally Low (10)
+                            // Nov 18: Classic Indicator (75)
+                            // Nov 23: High (80)
+                            // Nov 30: Surge (95)
+                            // Dec 2: High (90)
+                            // Dec 7: High/Radar Lock (93)
+                            // Dec 10: Sustained High (88)
+                            // Dec 12: Average/Dropping (50) - "Average to barely above"
+                            // Dec 13: Low/Mixed (42) - "Most reporting low", Nanjing Day quiet
+                            // Dec 16: Rising (70) - "Pizzato High", "Nighthawk Above Avg"
+                            // Dec 17: Operational Silence (25) - "Below Average" (Secret Talks)
+                            // Dec 18: Crisis Spike (90) - "High Traffic" ($11B Arms Sale)
+                            data: [20, 90, 75, 40, 10, 75, 80, 95, 90, 93, 88, 50, 42, 70, 25, 90], 
+                            borderColor: '#f59e0b', // Amber
+                            backgroundColor: 'rgba(245, 158, 11, 0.1)',
+                            borderWidth: 3,
+                            pointBackgroundColor: '#000',
+                            pointBorderColor: '#f59e0b',
+                            pointRadius: 4,
+                            pointHoverRadius: 6,
+                            tension: 0.2,
+                            fill: true
+                        }
+                    ]
+                }, 
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    interaction: { mode: 'index', intersect: false },
+                    plugins: { 
+                        legend: { display: false },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return ' Activity Level: ' + context.raw + '%';
                                 },
-                                backgroundColor: '#000',
-                                titleColor: '#f59e0b',
-                                bodyFont: { family: 'VT323', size: 14 },
-                                borderColor: '#f59e0b',
-                                borderWidth: 1
-                            }
-                        },
-                        scales: {
-                            x: { 
-                                grid: { color: '#333' }, 
-                                ticks: { color: '#ccc', font: { family: 'VT323' } } 
+                                afterLabel: function(context) {
+                                    // Custom Tooltips for key dates
+                                    const notes = {
+                                        'Nov 1': 'Takaichi meets Taiwan offical',
+                                        'Nov 7': 'Takaichi Survival Crisis',
+                                        'Nov 18': 'US Senate passes Taiwan Assurance Act',
+                                        'Nov 30': '100-Ship Surge Detected',
+                                        'Dec 2': 'Trump Signs Taiwan Act / Coast Guard Standoff',
+                                        'Dec 7': 'Radar Lock Incident',
+                                        'Dec 10': 'Ultimatum / B-52 Deployment',
+                                        'Dec 16': 'Carrier Fujian Transit',
+                                        'Dec 17': 'Operational Silence (Secret US-Taiwan Talks)',
+                                        'Dec 18': '$11.1B Arms Sale / Nuclear Comment'
+                                    };
+                                    return notes[context.label] ? ' > EVENT: ' + notes[context.label] : '';
+                                }
                             },
-                            y: { 
-                                min: 0,
-                                max: 110, // Give headroom for the peak
-                                grid: { color: '#333' }, 
-                                ticks: { color: '#f59e0b', font: { family: 'VT323' } },
-                                title: { display: true, text: 'OPERATIONAL TEMPO', color: '#666', font: { size: 10 } }
-                            }
+                            backgroundColor: '#000',
+                            titleColor: '#f59e0b',
+                            bodyFont: { family: 'VT323', size: 14 },
+                            borderColor: '#f59e0b',
+                            borderWidth: 1
+                        }
+                    },
+                    scales: {
+                        x: { 
+                            grid: { color: '#333' }, 
+                            ticks: { color: '#ccc', font: { family: 'VT323' } } 
+                        },
+                        y: { 
+                            min: 0,
+                            max: 110, 
+                            grid: { color: '#333' }, 
+                            ticks: { color: '#f59e0b', font: { family: 'VT323' } },
+                            title: { display: true, text: 'OPERATIONAL TEMPO', color: '#666', font: { size: 10 } }
                         }
                     }
-                });
-            }
+                }
+            });
+        }
 
             if(document.getElementById('flightChart')) {
                 new Chart(document.getElementById('flightChart'), {
