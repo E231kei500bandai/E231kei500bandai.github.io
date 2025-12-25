@@ -432,6 +432,41 @@
                 </div>
             </div>
 
+                <!-- DOCTRINAL SHIFT ALERT: THE NUCLEAR SUBMARINE -->
+            <section class="hoi-window danger-window p-0 border-4 border-red-500overflow-hidden mb-8">
+                <div class="p-4 bg-red-950/80 border-b-2 border-red-500">
+                    <h2 class="text-3xl text-red-500 font-black super-font glitch" data-text="DOCTRINAL SHIFT">DOCTRINAL SHIFT</h2>
+                    <p class="text-gray-400 font-mono text-sm">EVENT: THE NUCLEAR SUBMARINE DECLARATION (DEC 24)</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <!-- Image of a Nuclear Submarine -->
+                    <div class="relative">
+                        <img src="https://cdn.i-scmp.com/sites/default/files/styles/1200x800/public/d8/images/canvas/2025/10/21/b1bb6860-f023-4072-8bec-9813b3cc3c25_1ea2b824.jpg?itok=4IR0RbMy&v=1761026052" class="h-full w-full object-cover filter grayscale contrast-150 brightness-75" alt="Nuclear-Powered Submarine">
+                        <div class="absolute bottom-0 left-0 w-full p-2 bg-gradient-to-t from-black to-transparent">
+                            <span class="font-bold text-white text-sm">PM Takaichi becoming PM.</span>
+                        </div>
+                    </div>
+                    <!-- Intel Briefing -->
+                    <div class="p-6 bg-black/50">
+                        <h3 class="text-white text-lg font-bold mb-2">"No Option is Excluded"</h3>
+                        <p class="text-sm text-gray-400 mb-4">
+                            In an interview with Yomiuri Shimbun, PM Takaichi confirmed her government is actively considering the acquisition of nuclear-powered submarines (SSNs). This is a direct challenge to Japan's "exclusively defense-oriented" policy.
+                        </p>
+                        <div class="font-mono text-xs space-y-3">
+                            <blockquote class="border-l-2 border-red-500 pl-3 text-red-300">
+                                <strong>ANALYSIS:</strong> This is not about power generation. SSNs are offensive weapons for hunting enemy fleets far from home. This is a clear signal of intent to project power against China.
+                            </blockquote>
+                            <blockquote class="border-l-2 border-amber-400 pl-3 text-amber-300">
+                                <strong>TIMING:</strong> Coming days after her advisor's "we need nukes" leak, this confirms the leak was a deliberate trial balloon. The Takaichi administration is now openly pursuing nuclear capability.
+                            </blockquote>
+                        </div>
+                        <div class="mt-4 p-3 border border-red-800 bg-red-950/20 text-red-300 text-sm font-mono">
+                            <strong>> CONCLUSION:</strong> The "Peace Constitution" is dead. Takaichi is daring China to act.
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- FOURTH TAIWAN STRAIT CRISIS ALERT -->
             <section class="hoi-window danger-window p-0 border-4 border-red-500 overflow-hidden mb-8">
                 <div class="p-4 bg-red-950/80 border-b-2 border-red-500">
@@ -1162,7 +1197,7 @@
                                 Elected on a platform of unapologetic nationalism, she executed the "LDP Kamikaze" strategy. By explicitly linking Taiwan's security to Japan's "Survival Crisis" (存立危機事態), she legally bypassed Article 9 restrictions.
                             </p>
                             <p>
-                                She ignored China's ultimatums, viewing them as bluffs. She has successfully purged internal dissent, creating a unified, war-ready cabinet.
+                               She has calculated that the only way to ensure Japan's survival is to achieve military parity, shattering the post-war "Peace Constitution" in the process.
                             </p>
                         </div>
                         <div class="mt-4 pt-4 border-t border-red-900/30 text-xs text-red-500 font-mono">
@@ -1612,7 +1647,7 @@
                 date: "Dec 11", 
                 title: "Nuclear B-52s", 
                 desc: "The US Air Force responded. Nuclear-capable B-52 Stratofortresses executed a 'Show of Force' sortie over the Sea of Japan. The nuclear triad is active.", 
-                type: "military",
+                type: "nuclear",
                 img: "https://www.twz.com/wp-content/uploads/2024/06/re-nuclearize-b-52-bombers_46904b.jpg?quality=85g"
             },
             { 
@@ -1633,7 +1668,7 @@
                 date: "Dec 18", 
                 title: "Japan Nuclear Leak", 
                 desc: "PM Office source told reporters off-the-record: 'I think we should have nuclear weapons.'", 
-                type: "diplomatic", 
+                type: "nuclear", 
                 img: null
             },
             { 
@@ -1661,7 +1696,14 @@
                 date: "Dec 24", 
                 title: "Cable Cut Lawfare", 
                 desc: "On Christmas Eve, China resurrects a 10-month-old incident where a Chinese ship cut a Taiwanese internet cable. Beijing now publicly blames 'Taiwanese smugglers' and issues a bounty for their arrest, asserting extraterritorial jurisdiction over Taiwan's citizens. This is a classic Lawfare gambit to create a legal pretext for a future 'anti-smuggling' quarantine.", 
-                type: "trigger", 
+                type: "diplomatic", 
+                img: null
+            },
+            { 
+                date: "Dec 254", 
+                title: "Nuclear Submarines", 
+                desc: "PM Takaichi, in a formal interview, confirms her administration is considering acquiring nuclear-powered submarines, stating 'no option is excluded.' This shatters Japan's post-war pacifist doctrine and is viewed by China as the ultimate confirmation of revived militarism.", 
+                type: "nuclear", 
                 img: null
             }
         ];
@@ -1713,14 +1755,16 @@
                 el.onclick = () => showDetail(index);
                 
                 // 1. Determine Dot Color
-                let dotColor = 'text-gray-600';
+                let dotColor = 'text-gray-450';
                 if (item.type === 'trigger') dotColor = 'text-red-600';
                 if (item.type === 'kinetic') dotColor = 'text-amber-600';
                 if (item.type === 'military') dotColor = 'text-gray-400';
+                if (item.type === 'nuclear') dotColor = 'text-red-500';
+                if (item.type === 'military') dotColor = 'text-blue-300';
 
                 // 2. Generate the Tag
                 let tagHTML = '';
-                if (item.title.toLowerCase().includes('nuclear') || item.title.includes('B-52')) {
+                if (item.type === 'nuclear') {
                     tagHTML = '<span class="bg-red-900 text-white px-1 text-[10px] mr-2 border border-red-600 tracking-wider inline-block">NUCLEAR</span>';
                 }
                 else if (item.type === 'trigger') {
@@ -1730,7 +1774,7 @@
                     tagHTML = '<span class="bg-amber-900 text-white px-1 text-[10px] mr-2 border border-amber-500 tracking-wider inline-block">KINETIC</span>';
                 }
                 else if (item.type === 'military') {
-                    tagHTML = '<span class="bg-gray-800 text-gray-400 px-1 text-[10px] mr-2 border border-gray-600 tracking-wider inline-block">OPS</span>';
+                    tagHTML = '<span class="bg-blue-800 text-gray-400 px-1 text-[10px] mr-2 border border-blue-400 tracking-wider inline-block">OPS</span>';
                 }
 
                 // 3. Build the Compact Row HTML
