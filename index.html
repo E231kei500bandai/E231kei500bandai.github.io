@@ -253,7 +253,20 @@
             100% { clip: rect(102px, 9999px, 98px, 0); }
         }
 
-
+        .resource-window {
+            border-color: #d97706; /* Amber-600 */
+            box-shadow: 0 0 20px rgba(217, 119, 6, 0.3);
+            background: #1a140a; /* Dark Amber bg */
+        }
+        .hazard-stripe {
+            background: repeating-linear-gradient(
+                45deg,
+                #000,
+                #000 10px,
+                #d97706 10px,
+                #d97706 20px
+            );
+        }
 
         /* Timeline Styling */
         .timeline-line {
@@ -383,9 +396,9 @@
                     <p class="text-sm text-gray-400 mt-2">PLA Ships mobilized. Blockade rehearsal active.</p>
                 </div>
                 <div class="hoi-window p-5">
-                    <div class="text-xs text-gray-400 uppercase tracking-widest">Economic Decoupling</div>
-                    <div class="text-4xl font-bold text-yellow-600 mt-1 super-font">40%</div>
-                    <p class="text-sm text-gray-400 mt-2">Flight cancellation rate. Tourism weaponized.</p>
+                    <div class="text-xs text-gray-400 uppercase tracking-widest">Economic Blockade</div>
+                    <div class="text-4xl font-bold text-yellow-600 mt-1 super-font">ACTIVE</div>
+                    <p class="text-sm text-gray-400 mt-2">Export Restrictions for: Rare Earths (Samarium), Aerospace Components, Advanced Electronics, Drone Tech. <br> 40% of flights cancelled.</p>
                 </div>
                 <div class="hoi-window alert-window p-5">
                     <div class="text-xs text-amber-500 uppercase tracking-widest">Kinetic Trigger</div>
@@ -431,6 +444,47 @@
                     </div>
                 </div>
             </div>
+
+            <!-- RESOURCE WAR ALERT: RARE EARTHS -->
+            <section class="hoi-window resource-window p-0 border-4 border-amber-600 overflow-hidden mb-8">
+                <div class="p-4 bg-amber-950/90 border-b-2 border-amber-600 flex justify-between items-center">
+                    <div>
+                        <h2 class="text-3xl text-amber-500 font-black super-font glitch" data-text="SUPPLY CHAIN SEVERED">SUPPLY CHAIN SEVERED</h2>
+                        <p class="text-gray-400 font-mono text-sm">EVENT: DUAL-USE EXPORT BAN (JAN 6)</p>
+                    </div>
+                    <div class="h-8 w-32 hazard-stripe border border-amber-500 opacity-80"></div>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-2">
+                    <!-- Visual Data -->
+                    <div class="relative bg-black border-r border-amber-900">
+                        <img src="https://img.staticdj.com/54055400f9d2834a9225f7a3a0dd5ca1_1080x.jpg" class="h-150 object-fit opacity-60 filter sepia contrast-125" alt="Rare Earth Elements">
+                        <div class="absolute inset-0 flex flex-col justify-center items-center">
+                            <div class="bg-black/80 border border-amber-500 p-4 text-center">
+                                <h4 class="text-amber-500 font-bold text-xl super-font">TARGET: SAMARIUM</h4>
+                                <p class="text-gray-400 text-xs font-mono mt-1">STATUS: <span class="text-red-500 animate-pulse">RESTRICTED</span></p>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Intel Analysis -->
+                    <div class="p-6 bg-black/80">
+                        <h3 class="text-white text-lg font-bold mb-2">The Industrial Chokehold</h3>
+                        <p class="text-sm text-gray-400 mb-4">
+                            China has enacted immediate export restrictions on "dual-use" items to Japan, specifically citing National Security. This targets the raw materials required for advanced weaponry.
+                        </p>
+                        <div class="font-mono text-xs space-y-3">
+                            <blockquote class="border-l-2 border-red-500 pl-3 text-red-300">
+                                <strong>THE LIST:</strong> Rare Earths (Samarium), Aerospace Components, Advanced Electronics, Drone Tech.
+                            </blockquote>
+                            <blockquote class="border-l-2 border-amber-500 pl-3 text-amber-300">
+                                <strong>THE IMPACT:</strong> "Samarium-Cobalt magnets are essential for missile guidance systems and F-35 radars."
+                            </blockquote>
+                        </div>
+                        <div class="mt-4 p-3 border border-red-800 bg-red-950/20 text-red-300 text-sm font-mono">
+                            <strong>> ANALYSIS:</strong> "Seems like nothing will be impacted" is the dangerous view. This is a time-delayed attack. In 90 days, Japanese defense production lines will run dry. This is a siege of the industrial base.
+                        </div>
+                    </div>
+                </div>
+            </section>
 
                 <!-- DOCTRINAL SHIFT ALERT: THE NUCLEAR SUBMARINE -->
             <section class="hoi-window danger-window p-0 border-4 border-red-500overflow-hidden mb-8">
@@ -826,10 +880,10 @@
                                 Create "Inspection Zones" -> Insurance premiums spike -> Taiwan economy suffocates. No shots fired.
                             </p>
                         </div>
-                        <div class="hoi-window p-4">
-                            <h4 class="text-gray-400 text-sm mb-2 uppercase super-font">Rare Earth Block</h4>
-                            <p class="text-sm text-gray-500">
-                                Japan imports almost all of its Rare Earths from China. A disruption to this will destroy Japanese supply chains.
+                        <div class="hoi-window p-4 border-red-500 shadow-[0_0_10px_#ef4444]">
+                            <h4 class="text-red-500 text-sm mb-2 uppercase super-font">Rare Earth Block: ACTIVE</h4>
+                            <p class="text-sm text-gray-300">
+                                <strong>Jan 6 Status:</strong> Restrictions implemented. Samarium supply to Japan cut. Defense industry stockpiles estimated at 3-6 months.
                             </p>
                         </div>
                     </div>
@@ -1731,7 +1785,7 @@
             { 
                 date: "Dec 29", 
                 title: "JUST MISSION 2025", 
-                desc: "China launches 'Just Mission 2025.' The PLA demarcates 5 Live-Fire Exclusion Zones completely encircling Taiwan. The Rocket Force is mobilized. The stated goal is 'sealing off key ports.' This is the physical enactment of the blockade scenario.", 
+                desc: "China launches 'Just Mission 2025.' The PLA demarcates 5 Live-Fire Exclusion Zones completely encircling Taiwan. The Rocket Force is mobilized. The stated goal is 'sealing off key ports.'.", 
                 type: "kinetic", 
                 img: "https://www.yomiuri.co.jp/media/2025/12/20251229-GYT1I00149-1.jpg?type=x-large"
             },
@@ -1746,9 +1800,30 @@
             { 
                 date: "Jan 1", 
                 title: "Takaichi's Resolution", 
-                desc: "PM Takaichi invokes the 'Showa Era' and quotes Okakura Tenshin in her New Year message. To the West, it sounds like nostalgia. To Asia, it sounds like the ressurection of Imperial ideology. The crisis has shifted from kinetic to spiritual.", 
+                desc: "PM Takaichi invokes the 'Showa Era' and quotes Okakura Tenshin in her New Year message. This is Showa 100.", 
                 type: "political", 
                 img: null
+            },
+            { 
+                date: "Jan 3", 
+                title: "Venezuela Decapitation", 
+                desc: "US forces launch a direct decapitation strike, capturing Nicolas Maduro. Trump declares US control during transition. China condemns this, while secretly thankful while planning a decapitation strike of their own.", 
+                type: "kinetic", 
+                img: "g"
+            },
+            { 
+                date: "Jan 4", 
+                title: "Infiltration Costumes", 
+                desc: "Defense Ministry admits authentic JSDF uniforms and high-ranking insignias are flowing into China via black markets. This could be preparation for 'False Flag' or infiltration operations, but the mere possibilty induces paralysis in Japan.", 
+                type: "military", 
+                img: ""
+            },
+            { 
+                date: "Jan 6", 
+                title: "Rare Earth Embargo", 
+                desc: "China bans the export of 'dual-use' strategic materials to Japan, specifically citing Takaichi's Taiwan remarks. The ban includes Samarium (vital for missile magnets) and aerospace components..", 
+                type: "diplomatic", // Or create a new 'economic' type if you prefer
+                img: ""
             }
         ];
 
